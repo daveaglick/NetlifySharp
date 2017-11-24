@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+using System;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,11 +14,13 @@ namespace NetlifySharp
     {
         private const string ApiUrl = "https://api.netlify.com/api/v1";
 
-        private readonly Endpoint SitesEndpoint = new Endpoint("sites");
-        private readonly Endpoint FormsEndpoint = new Endpoint("forms");
+        private readonly HttpClient _httpClient = new HttpClient();
 
-        private HttpClient HttpClient = new HttpClient();
-        
+        private readonly Endpoint _sitesEndpoint = new Endpoint("sites");
+        private readonly Endpoint _formsEndpoint = new Endpoint("forms");
+
+        private readonly JsonSerializer _serializer = new JsonSerializer();
+
         public NetlifyClient(string accessToken)
         {
             if (string.IsNullOrWhiteSpace(accessToken))
@@ -29,26 +32,35 @@ namespace NetlifySharp
                 throw new ArgumentException("Invalid access token", nameof(accessToken));
             }
 
-            HttpClient.DefaultRequestHeaders.Add("User-Agent", nameof(NetlifySharp));
-            HttpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", nameof(NetlifySharp));
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            _serializer.ContractResolver = new CustomContractResolver(this);
+            _serializer.MissingMemberHandling = MissingMemberHandling.Ignore;
         }
 
-        internal async Task<TResponse> SendAsync<TResponse>(Endpoint endpoint)
+        private async Task<TResponse> SendAsync<TResponse>(Endpoint endpoint)
             where TResponse : class =>
             await SendAsync<TResponse>(HttpMethod.Get, endpoint);
 
-        internal async Task<TResponse> SendAsync<TResponse>(HttpMethod method, Endpoint endpoint)
+        private async Task<TResponse> SendAsync<TResponse>(HttpMethod method, Endpoint endpoint)
             where TResponse : class
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{ApiUrl}/{endpoint}");
-            HttpResponseMessage response = await HttpClient.SendAsync(request);
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(TResponse), new DataContractJsonSerializerSettings
+            HttpResponseMessage response = await _httpClient.SendAsync(request);
+            
+            using (Stream stream = await response.Content.ReadAsStreamAsync())
             {
-                DateTimeFormat = new DateTimeFormat("yyyy-MM-dd'T'HH:mm:ss.fffK")              
-            });
-            return serializer.ReadObject(await response.Content.ReadAsStreamAsync()) as TResponse;
+                using (StreamReader streamReader = new StreamReader(stream))
+                {
+                    using (JsonTextReader jsonReader = new JsonTextReader(streamReader))
+                    {
+                        return _serializer.Deserialize<TResponse>(jsonReader);
+                    }
+                }
+            }
         }
 
+        // Internal for testing
         internal string AppendId(string endpoint, string id, string paramName)
         {
             if(string.IsNullOrWhiteSpace(id))
@@ -58,13 +70,13 @@ namespace NetlifySharp
             return $"{endpoint}/{id}";
         }
 
-        public async Task<IList<Site>> GetSitesAsync() => await SendAsync<IList<Site>>(SitesEndpoint);
+        public async Task<Site[]> GetSitesAsync() => await SendAsync<Site[]>(_sitesEndpoint);
 
-        public async Task<Site> GetSiteAsync(string siteId) => await SendAsync<Site>(SitesEndpoint.AppendId(siteId, nameof(siteId)));
+        public async Task<Site> GetSiteAsync(string siteId) => await SendAsync<Site>(_sitesEndpoint.AppendId(siteId, nameof(siteId)));
 
-        public async Task<IList<Form>> GetFormsAsync() => await SendAsync<IList<Form>>(FormsEndpoint);
+        public async Task<Form[]> GetFormsAsync() => await SendAsync<Form[]>(_formsEndpoint);
 
-        public async Task<IList<Form>> GetFormsAsync(string siteId) => 
-            await SendAsync<IList<Form>>(SitesEndpoint.AppendId(siteId, nameof(siteId)).Append(FormsEndpoint));
+        public async Task<Form[]> GetFormsAsync(string siteId) => 
+            await SendAsync<Form[]>(_sitesEndpoint.AppendId(siteId, nameof(siteId)).Append(_formsEndpoint));
     }
 }

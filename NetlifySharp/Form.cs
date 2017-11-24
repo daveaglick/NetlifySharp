@@ -2,8 +2,7 @@
 
 namespace NetlifySharp
 {
-    [DataContract]
-    public class Form
+    public class Form : Model
     {
 
     }

@@ -1,49 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace NetlifySharp
 {
-    [DataContract]
-    public class Site
+    public class Site : Model
     {
-        [DataMember(Name = "id")]
-        public string Id { get; set; }
+        public string Id { get; private set; }
+        public bool Premium { get; private set; }
+        public bool Claimed { get; private set; }
+        public string Name { get; private set; }
+        public string CustomDomain { get; private set; }
+        public string NotificationEmail { get; private set; }
+        public string Url { get; private set; }
+        public string AdminUrl { get; private set; }
+        public string ScreenshotUrl { get; private set; }
+        public DateTime CreatedAt { get; private set; }
+        public DateTime UpdatedAt { get; private set; }
+        public string UserId { get; private set; }
 
-        [DataMember(Name = "premium")]
-        public bool Premium { get; set; }
-
-        [DataMember(Name = "claimed")]
-        public bool Claimed { get; set; }
-
-        [DataMember(Name = "name")]
-        public string Name { get; set; }
-
-        [DataMember(Name = "custom_domain")]
-        public string CustomDomain { get; set; }
-
-        [DataMember(Name = "notification_email")]
-        public string NotificationEmail { get; set; }
-
-        [DataMember(Name = "url")]
-        public string Url { get; set; }
-
-        [DataMember(Name = "admin_url")]
-        public string AdminUrl { get; set; }
-
-        [DataMember(Name = "screenshot_url")]
-        public string ScreenshotUrl { get; set; }
-
-        [DataMember(Name = "created_at")]
-        public DateTime CreatedAt { get; set; }
-
-        [DataMember(Name = "updated_at")]
-        public DateTime UpdatedAt { get; set; }
-
-        [DataMember(Name = "user_id")]
-        public string UserId { get; set; }
-
-
+        public async Task<Form[]> GetFormsAsync() => await Client.GetFormsAsync(Id);
     }
 }
