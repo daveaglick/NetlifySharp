@@ -3,39 +3,33 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("NetlifySharp.Tests")]
 
 namespace NetlifySharp
 {
     public class NetlifyClient
-    {
-        private const string ApiUrl = "https://api.netlify.com/api/v1";
-
-        private readonly HttpClient _httpClient = new HttpClient();
-
-        private readonly Endpoint _sitesEndpoint = new Endpoint("sites");
-        private readonly Endpoint _formsEndpoint = new Endpoint("forms");
+    {  
+        private static Endpoint SitesEndpoint = new Endpoint("sites");
+        private static Endpoint FormsEndpoint = new Endpoint("forms");
 
         private readonly JsonSerializer _serializer = new JsonSerializer();
+        private readonly IApiClient _apiClient;
 
         public NetlifyClient(string accessToken)
+            : this(new ApiClient(accessToken))
         {
-            if (string.IsNullOrWhiteSpace(accessToken))
-            {
-                throw new ArgumentException("Access token cannot be null or empty", nameof(accessToken));
-            }
-            if (accessToken.Any(x => char.IsWhiteSpace(x) || char.IsControl(x)))
-            {
-                throw new ArgumentException("Invalid access token", nameof(accessToken));
-            }
+        }
 
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", nameof(NetlifySharp));
-            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-            _serializer.ContractResolver = new CustomContractResolver(this);
+        internal NetlifyClient(ApiClient apiClient)
+        {
+            _serializer.ContractResolver = new ClientContractResolver(this);
             _serializer.MissingMemberHandling = MissingMemberHandling.Ignore;
+            _apiClient = apiClient;
         }
 
         private async Task<TResponse> SendAsync<TResponse>(Endpoint endpoint)
@@ -45,10 +39,7 @@ namespace NetlifySharp
         private async Task<TResponse> SendAsync<TResponse>(HttpMethod method, Endpoint endpoint)
             where TResponse : class
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{ApiUrl}/{endpoint}");
-            HttpResponseMessage response = await _httpClient.SendAsync(request);
-            
-            using (Stream stream = await response.Content.ReadAsStreamAsync())
+            using (Stream stream = await _apiClient.SendAndReadAsync(method, endpoint))
             {
                 using (StreamReader streamReader = new StreamReader(stream))
                 {
@@ -60,23 +51,13 @@ namespace NetlifySharp
             }
         }
 
-        // Internal for testing
-        internal string AppendId(string endpoint, string id, string paramName)
-        {
-            if(string.IsNullOrWhiteSpace(id))
-            {
-                throw new ArgumentException($"{paramName} cannot be null or empty", paramName);
-            }
-            return $"{endpoint}/{id}";
-        }
+        public async Task<Site[]> GetSitesAsync() => await SendAsync<Site[]>(SitesEndpoint);
 
-        public async Task<Site[]> GetSitesAsync() => await SendAsync<Site[]>(_sitesEndpoint);
+        public async Task<Site> GetSiteAsync(string siteId) => await SendAsync<Site>(SitesEndpoint.Append(siteId, nameof(siteId)));
 
-        public async Task<Site> GetSiteAsync(string siteId) => await SendAsync<Site>(_sitesEndpoint.AppendId(siteId, nameof(siteId)));
-
-        public async Task<Form[]> GetFormsAsync() => await SendAsync<Form[]>(_formsEndpoint);
+        public async Task<Form[]> GetFormsAsync() => await SendAsync<Form[]>(FormsEndpoint);
 
         public async Task<Form[]> GetFormsAsync(string siteId) => 
-            await SendAsync<Form[]>(_sitesEndpoint.AppendId(siteId, nameof(siteId)).Append(_formsEndpoint));
+            await SendAsync<Form[]>(SitesEndpoint.Append(siteId, nameof(siteId)).Append(FormsEndpoint));
     }
 }

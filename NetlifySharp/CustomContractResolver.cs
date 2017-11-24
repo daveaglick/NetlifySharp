@@ -6,11 +6,11 @@ using System.Reflection;
 
 namespace NetlifySharp
 {
-    internal class CustomContractResolver : DefaultContractResolver
+    internal class ClientContractResolver : DefaultContractResolver
     {
         private readonly NetlifyClient _client;
 
-        public CustomContractResolver(NetlifyClient client)
+        public ClientContractResolver(NetlifyClient client)
         {
             _client = client;
         }
@@ -35,20 +35,25 @@ namespace NetlifySharp
             else
             {
                 // Convert between snake case in JSON and pascal case in .NET
-                property.PropertyName = new string(ToSnakeCase(property.PropertyName).ToArray());
+                property.PropertyName = ToSnakeCake(property.PropertyName);
             }
 
             return property;
         }
-        
-        public IEnumerable<char> ToSnakeCase(string str)
+
+        public static string ToSnakeCake(string str) => new string(ToSnakeCaseChars(str).ToArray());
+
+        private static IEnumerable<char> ToSnakeCaseChars(string str)
         {
             yield return char.ToLowerInvariant(str[0]);
             for(int c = 1; c < str.Length; c++)
             {
                 if(char.IsUpper(str[c]))
                 {
-                    yield return '_';
+                    if (str[c - 1] != '_')
+                    {
+                        yield return '_';
+                    }
                     yield return char.ToLowerInvariant(str[c]);
                 }
                 else

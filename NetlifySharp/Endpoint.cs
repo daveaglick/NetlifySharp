@@ -11,7 +11,7 @@ namespace NetlifySharp
             _endpoint = endpoint;
         }
 
-        public Endpoint AppendId(string id, string paramName)
+        public Endpoint Append(string id, string paramName)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
