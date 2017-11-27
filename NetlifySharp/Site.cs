@@ -6,7 +6,7 @@ namespace NetlifySharp
 {
     public class Site : Model
     {
-        public string Id { get; private set; }
+        public string Id { get; internal set; }
         public bool Premium { get; private set; }
         public bool Claimed { get; private set; }
         public string Name { get; private set; }

@@ -14,8 +14,8 @@ namespace NetlifySharp
 {
     public class NetlifyClient
     {  
-        private static Endpoint SitesEndpoint = new Endpoint("sites");
-        private static Endpoint FormsEndpoint = new Endpoint("forms");
+        internal static Endpoint SitesEndpoint = new Endpoint("sites");
+        internal static Endpoint FormsEndpoint = new Endpoint("forms");
 
         private readonly JsonSerializer _serializer = new JsonSerializer();
         private readonly IApiClient _apiClient;
@@ -25,7 +25,7 @@ namespace NetlifySharp
         {
         }
 
-        internal NetlifyClient(ApiClient apiClient)
+        internal NetlifyClient(IApiClient apiClient)
         {
             _serializer.ContractResolver = new ClientContractResolver(this);
             _serializer.MissingMemberHandling = MissingMemberHandling.Ignore;

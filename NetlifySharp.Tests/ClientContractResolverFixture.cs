@@ -18,7 +18,7 @@ namespace NetlifySharp.Tests
         public void ConvertsPascalToSnakeCase(string input, string expected)
         {
             // Given, When
-            string actual = ClientContractResolver.ToSnakeCake(input);
+            string actual = ClientContractResolver.ToSnakeCase(input);
 
             // Then
             actual.ShouldBe(expected);

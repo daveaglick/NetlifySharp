@@ -8,7 +8,7 @@ namespace NetlifySharp
 {
     internal class ApiClient : IApiClient
     {
-        private static Endpoint ApiEndpoint = new Endpoint("https://api.netlify.com/api/v1");
+        internal static Endpoint ApiEndpoint = new Endpoint("https://api.netlify.com/api/v1");
 
         private readonly HttpClient _httpClient = new HttpClient();
 
@@ -29,7 +29,7 @@ namespace NetlifySharp
 
         public async Task<Stream> SendAndReadAsync(HttpMethod method, Endpoint endpoint)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ApiEndpoint.Append(endpoint).ToString());
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ApiEndpoint.Append(endpoint));
             HttpResponseMessage response = await _httpClient.SendAsync(request);
             return await response.Content.ReadAsStreamAsync();
         }

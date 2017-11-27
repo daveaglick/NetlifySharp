@@ -35,13 +35,13 @@ namespace NetlifySharp
             else
             {
                 // Convert between snake case in JSON and pascal case in .NET
-                property.PropertyName = ToSnakeCake(property.PropertyName);
+                property.PropertyName = ToSnakeCase(property.PropertyName);
             }
 
             return property;
         }
 
-        public static string ToSnakeCake(string str) => new string(ToSnakeCaseChars(str).ToArray());
+        public static string ToSnakeCase(string str) => new string(ToSnakeCaseChars(str).ToArray());
 
         private static IEnumerable<char> ToSnakeCaseChars(string str)
         {
