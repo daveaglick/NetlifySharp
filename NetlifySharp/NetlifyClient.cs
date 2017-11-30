@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
-using System;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using NetlifySharp.Models;
 
 [assembly: InternalsVisibleTo("NetlifySharp.Tests")]
 

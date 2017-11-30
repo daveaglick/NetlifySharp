@@ -1,0 +1,158 @@
+﻿#r "..\CodeGenLibs\Newtonsoft.Json.dll"
+
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+
+// Clean previous generations
+if (Directory.Exists("CodeGen"))
+{
+    Directory.Delete("CodeGen", true);
+}
+
+// Get and parse the Open API definition
+string swagger = File.ReadAllText("swagger.json");
+JObject root = JObject.Parse(swagger);
+
+// Iterate the definitions
+JObject definitions = (JObject)root["definitions"];
+foreach (JProperty definition in definitions.Properties())
+{
+    WriteObject(ToCamelCase(definition.Name), (JObject)definition.Value, definitions);
+}
+
+// Helper methods
+
+public static Dictionary<string, string> ClassNameMappings = new Dictionary<string, string>
+{
+    { "AccessToken", "AccessTokenData" }
+};
+
+public static Dictionary<string, string> TypeMappings = new Dictionary<string, string>
+{
+    { "integer", "int?" },
+    { "boolean", "bool?" },
+    { "number", "int?" }
+};
+
+public static Dictionary<string, string> FormatMappings = new Dictionary<string, string>
+{
+    { "string", "string" },
+    { "dateTime", "DateTime?" },
+    { "int32", "int?" }
+};
+
+// Some classes need to be renamed due to duplicate named properties
+public string GetClassName(String name) =>
+    ClassNameMappings.ContainsKey(name) ? ClassNameMappings[name] : name;
+
+
+public void WriteObject(string name, JObject definition, JObject definitions)
+{
+    string className = GetClassName(name);
+    using (TextWriter writer = Output[$@"CodeGen\{className}.cs"])
+    {
+        writer.Write($@"
+using System;
+
+namespace NetlifySharp.Models
+{{
+    public partial class {className} : Model
+    {{");
+        WriteProperties(name, writer, definition, definitions);
+        writer.Write($@"
+    }}
+}}
+");
+    }
+}
+
+public void WriteProperties(string containingName, TextWriter writer, JObject definition, JObject definitions)
+{
+    // TODO: handle "allOf"
+
+    // Iterate properties
+    JObject properties = definition.Property("properties")?.Value as JObject;
+    if (properties != null)
+    {
+        foreach (JProperty property in properties.Properties())
+        {
+            string propertyName = containingName + ToCamelCase(property.Name);
+            writer.Write($@"
+        public { GetPropertyType(propertyName, (JObject)property.Value) } { ToCamelCase(property.Name) } {{ get; private set; }}");
+        }
+    }
+}
+
+public string GetPropertyType(string name, JObject property)
+{
+    // Check if this references a different definition
+    JProperty reference = property.Property("$ref");
+    if(reference != null)
+    {
+        return GetClassName(
+            ToCamelCase(
+                reference.Value.ToString().Replace("#/definitions/", string.Empty)));
+    }
+
+    // Process the type
+    string type = property.Property("type")?.Value.ToString() ?? "string";
+    if (type == "object")
+    {
+        type = name;
+        WriteObject(name, property, definitions);
+    }
+    else if (type == "array")
+    {
+        JObject items = (JObject)property.Property("items")?.Value;
+        if(items == null)
+        {
+            throw new Exception("Unexpected array without items property");
+        }
+        type = $"{GetPropertyType(name, items)}[]";
+    }
+    else if (type == "string")
+    {
+        string format = property.Property("format")?.Value.ToString();
+        if(format != null)
+        {
+            if(!FormatMappings.TryGetValue(format, out type))
+            {
+                throw new Exception($"Unknown property format {format}");
+            }
+        }
+    }
+    else
+    {
+        string originalType = type;
+        if(!TypeMappings.TryGetValue(type, out type))
+        {
+            throw new Exception($"Unknown property type {originalType}");
+        }
+    }
+    return type;
+}
+
+public string ToCamelCase(string str) => new string(ToCamelCaseChars(str).ToArray());
+
+public IEnumerable<char> ToCamelCaseChars(string str)
+{
+    yield return char.ToUpperInvariant(str[0]);
+    for(int c = 1; c < str.Length; c++)
+    {
+        if(str[c] == '_')
+        {
+            c++;
+            if(c < str.Length)
+            {
+                yield return char.ToUpperInvariant(str[c]);
+            }
+        }
+        else
+        {
+            yield return str[c];
+        }
+    }
+}

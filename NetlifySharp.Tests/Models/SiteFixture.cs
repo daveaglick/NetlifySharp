@@ -1,11 +1,12 @@
-﻿using NUnit.Framework;
+﻿using NetlifySharp.Models;
+using NUnit.Framework;
 using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
-namespace NetlifySharp.Tests
+namespace NetlifySharp.Tests.Models
 {
     [TestFixture]
     public class SiteFixture
@@ -18,9 +19,9 @@ namespace NetlifySharp.Tests
             NetlifyClient client = new NetlifyClient(apiClient);
             Site site = new Site
             {
-                Id = "50e9bfc8-e242-428d-ba2b-3ae7c2d9863f",
                 Client = client
             };
+            site.SetId("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f");
 
             // When
             Form[] result = site.GetFormsAsync().Result;

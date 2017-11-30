@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
-namespace NetlifySharp
+namespace NetlifySharp.Models
 {
     public class Model
     {

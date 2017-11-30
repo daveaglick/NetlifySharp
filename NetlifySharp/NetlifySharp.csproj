@@ -6,6 +6,20 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Scripty.MsBuild" Version="0.7.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <NewtonsoftJsonFiles Include="$(NuGetPackageRoot)\Newtonsoft.Json\10.0.3\lib\netstandard1.3\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CodeGen\**" />
+    <EmbeddedResource Remove="CodeGen\**" />
+    <None Remove="CodeGen\**" />
+  </ItemGroup>
+
+  <Target Name="CopyLibsForCodeGen" AfterTargets="Restore" BeforeTargets="EvaluateScriptyFiles">
+    <Copy SourceFiles="@(NewtonsoftJsonFiles)" DestinationFolder="$(SolutionDir)CodeGenLibs" />
+  </Target>
 </Project>
