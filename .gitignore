@@ -26,7 +26,7 @@ bld/
 
 # Code generation
 [Cc]odeGenLibs/
-[Gg]enerated/
+[Cc]odeGen/
 
 # Visual Studio 2015 cache/options directory
 .vs/
