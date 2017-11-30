@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace NetlifySharp.Tests
 {
@@ -30,7 +31,11 @@ namespace NetlifySharp.Tests
             return this;
         }
 
-        public Task<Stream> SendAndReadAsync(HttpMethod method, Endpoint endpoint)
+        public Task<Stream> SendAndReadAsync(
+            HttpMethod method,
+            Endpoint endpoint,
+            Action<HttpRequestMessage> customizeRequest = null,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             SendAndReadCalls.Add((method, endpoint));
             return Task.FromResult(Response);

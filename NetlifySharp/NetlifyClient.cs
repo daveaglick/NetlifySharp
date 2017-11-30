@@ -4,6 +4,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using NetlifySharp.Models;
+using System;
+using System.Threading;
 
 [assembly: InternalsVisibleTo("NetlifySharp.Tests")]
 
@@ -29,14 +31,19 @@ namespace NetlifySharp
             _apiClient = apiClient;
         }
 
-        private async Task<TResponse> SendAsync<TResponse>(Endpoint endpoint)
+        private async Task<TResponse> SendAndDeserializeAsync<TResponse>(Endpoint endpoint,
+            Action<HttpRequestMessage> customizeRequest = null,
+            CancellationToken cancellationToken = default(CancellationToken))
             where TResponse : class =>
-            await SendAsync<TResponse>(HttpMethod.Get, endpoint);
+            await SendAndDeserializeAsync<TResponse>(HttpMethod.Get, endpoint, customizeRequest, cancellationToken);
 
-        private async Task<TResponse> SendAsync<TResponse>(HttpMethod method, Endpoint endpoint)
+        private async Task<TResponse> SendAndDeserializeAsync<TResponse>(HttpMethod method,
+            Endpoint endpoint,
+            Action<HttpRequestMessage> customizeRequest = null,
+            CancellationToken cancellationToken = default(CancellationToken))
             where TResponse : class
         {
-            using (Stream stream = await _apiClient.SendAndReadAsync(method, endpoint))
+            using (Stream stream = await _apiClient.SendAndReadAsync(method, endpoint, customizeRequest, cancellationToken))
             {
                 using (StreamReader streamReader = new StreamReader(stream))
                 {
@@ -48,13 +55,26 @@ namespace NetlifySharp
             }
         }
 
-        public async Task<Site[]> GetSitesAsync() => await SendAsync<Site[]>(SitesEndpoint);
+        public async Task<Site[]> GetSitesAsync(
+            Action<HttpRequestMessage> customizeRequest = null,
+            CancellationToken cancellationToken = default(CancellationToken)) =>
+            await SendAndDeserializeAsync<Site[]>(SitesEndpoint, customizeRequest, cancellationToken);
 
-        public async Task<Site> GetSiteAsync(string siteId) => await SendAsync<Site>(SitesEndpoint.Append(siteId, nameof(siteId)));
+        public async Task<Site> GetSiteAsync(
+            string siteId,
+            Action<HttpRequestMessage> customizeRequest = null,
+            CancellationToken cancellationToken = default(CancellationToken)) =>
+            await SendAndDeserializeAsync<Site>(SitesEndpoint.Append(siteId, nameof(siteId)), customizeRequest, cancellationToken);
 
-        public async Task<Form[]> GetFormsAsync() => await SendAsync<Form[]>(FormsEndpoint);
+        public async Task<Form[]> GetFormsAsync(
+            Action<HttpRequestMessage> customizeRequest = null,
+            CancellationToken cancellationToken = default(CancellationToken)) =>
+            await SendAndDeserializeAsync<Form[]>(FormsEndpoint, customizeRequest, cancellationToken);
 
-        public async Task<Form[]> GetFormsAsync(string siteId) => 
-            await SendAsync<Form[]>(SitesEndpoint.Append(siteId, nameof(siteId)).Append(FormsEndpoint));
+        public async Task<Form[]> GetFormsAsync(
+            string siteId,
+            Action<HttpRequestMessage> customizeRequest = null,
+            CancellationToken cancellationToken = default(CancellationToken)) => 
+            await SendAndDeserializeAsync<Form[]>(SitesEndpoint.Append(siteId, nameof(siteId)).Append(FormsEndpoint), customizeRequest, cancellationToken);
     }
 }

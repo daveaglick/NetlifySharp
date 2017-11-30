@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NetlifySharp
@@ -27,10 +28,15 @@ namespace NetlifySharp
             _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
         }
 
-        public async Task<Stream> SendAndReadAsync(HttpMethod method, Endpoint endpoint)
+        public async Task<Stream> SendAndReadAsync(
+            HttpMethod method,
+            Endpoint endpoint,
+            Action<HttpRequestMessage> customizeRequest = null,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ApiEndpoint.Append(endpoint));
-            HttpResponseMessage response = await _httpClient.SendAsync(request);
+            customizeRequest?.Invoke(request);
+            HttpResponseMessage response = await _httpClient.SendAsync(request, cancellationToken);
             return await response.Content.ReadAsStreamAsync();
         }
     }
