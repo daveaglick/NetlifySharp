@@ -61,7 +61,7 @@ namespace NetlifySharp.Models
 {{
     public partial class {className} : Model
     {{");
-        WriteProperties(name, writer, definition, definitions);
+        WriteProperties(name, writer, definition, definitions, true);
         writer.Write($@"
     }}
 }}
@@ -69,9 +69,36 @@ namespace NetlifySharp.Models
     }
 }
 
-public void WriteProperties(string containingName, TextWriter writer, JObject definition, JObject definitions)
+public void WriteProperties(string containingName, TextWriter writer, JObject definition, JObject definitions, bool writeObjects)
 {
-    // TODO: handle "allOf"
+    // Handle allOf
+    JProperty allOf = definition.Property("allOf");
+    if(allOf != null)
+    {
+        foreach(JObject allOfItem in (JArray)allOf.Value)
+        {
+            JProperty reference = allOfItem.Property("$ref");
+            if (reference != null)
+            {
+                string referenceType = reference.Value.ToString().Replace("#/definitions/", string.Empty);
+                JProperty referenceDefinition = definitions.Property(referenceType);
+                if (referenceDefinition == null)
+                {
+                    throw new Exception($"Unknown reference type {referenceType}");
+                }
+                WriteProperties(ToCamelCase(referenceType), writer, (JObject)referenceDefinition.Value, definitions, false);
+            }
+            else if(allOfItem.Property("properties") != null)
+            {
+                WriteProperties(containingName, writer, allOfItem, definitions, writeObjects);
+            }
+            else
+            {
+                throw new Exception($"Unknown composition item {allOfItem.ToString()}");
+            }
+        }
+        return;
+    }
 
     // Iterate properties
     JObject properties = definition.Property("properties")?.Value as JObject;
@@ -81,12 +108,12 @@ public void WriteProperties(string containingName, TextWriter writer, JObject de
         {
             string propertyName = containingName + ToCamelCase(property.Name);
             writer.Write($@"
-        public { GetPropertyType(propertyName, (JObject)property.Value) } { ToCamelCase(property.Name) } {{ get; private set; }}");
+        public { GetPropertyType(propertyName, (JObject)property.Value, writeObjects) } { ToCamelCase(property.Name) } {{ get; private set; }}");
         }
     }
 }
 
-public string GetPropertyType(string name, JObject property)
+public string GetPropertyType(string name, JObject property, bool writeObjects)
 {
     // Check if this references a different definition
     JProperty reference = property.Property("$ref");
@@ -102,7 +129,10 @@ public string GetPropertyType(string name, JObject property)
     if (type == "object")
     {
         type = name;
-        WriteObject(name, property, definitions);
+        if (writeObjects)
+        {
+            WriteObject(name, property, definitions);
+        }
     }
     else if (type == "array")
     {
@@ -111,7 +141,7 @@ public string GetPropertyType(string name, JObject property)
         {
             throw new Exception("Unexpected array without items property");
         }
-        type = $"{GetPropertyType(name, items)}[]";
+        type = $"{GetPropertyType(name, items, writeObjects)}[]";
     }
     else if (type == "string")
     {
