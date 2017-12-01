@@ -5,40 +5,44 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Net;
 
 namespace NetlifySharp.Tests
 {
     internal class TestApiClient : IApiClient
     {
-        public Stream Response { get; set; }
+        public Endpoint Endpoint => new Endpoint(string.Empty);
 
-        public List<(HttpMethod method, Endpoint endpoint)> SendAndReadCalls { get; } = new List<(HttpMethod method, Endpoint endpoint)>();
+        public List<HttpRequestMessage> Requests { get; } = new List<HttpRequestMessage>();
 
-        public TestApiClient()
+        public Stream ResponseContent { get; set; }
+
+        public HttpStatusCode StatusCode { get; set; }
+
+        public TestApiClient(HttpStatusCode statusCode = HttpStatusCode.OK)
         {
-            Response = new MemoryStream();
+            ResponseContent = new MemoryStream();
+            StatusCode = statusCode;
         }
 
-        public TestApiClient WithStringResponse(string response)
+        public TestApiClient WithStringResponseContent(string response)
         {
-            Response = new MemoryStream(Encoding.UTF8.GetBytes(response));
+            ResponseContent = new MemoryStream(Encoding.UTF8.GetBytes(response));
             return this;
         }
 
-        public TestApiClient WithResourceRespose(string embeddedResource)
+        public TestApiClient WithResourceResposeContent(string embeddedResource)
         {
-            Response = typeof(TestApiClient).Assembly.GetManifestResourceStream($"{nameof(NetlifySharp)}.{nameof(Tests)}.{embeddedResource}");
+            ResponseContent = typeof(TestApiClient).Assembly.GetManifestResourceStream($"{nameof(NetlifySharp)}.{nameof(Tests)}.{embeddedResource}");
             return this;
         }
 
-        public Task<Stream> SendAndReadAsync(
-            HttpMethod method,
-            Endpoint endpoint,
-            Action<HttpRequestMessage> customizeRequest = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+        public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            SendAndReadCalls.Add((method, endpoint));
-            return Task.FromResult(Response);
+            Requests.Add(request);
+            HttpResponseMessage responseMessage = new HttpResponseMessage(StatusCode);
+            responseMessage.Content = new StreamContent(ResponseContent);
+            return Task.FromResult(responseMessage);
         }
     }
 }

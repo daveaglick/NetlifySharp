@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetlifySharp.Operations;
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,11 +14,8 @@ namespace NetlifySharp.Models
         public bool Premium { get; private set; }
         public bool Claimed { get; private set; }
 
-        // Endpoints
-        public async Task<Form[]> GetFormsAsync(
-            Action<HttpRequestMessage> customizeRequest = null,
-            CancellationToken cancellationToken = default(CancellationToken)) =>
-            await Client.GetFormsAsync(Id, customizeRequest, cancellationToken);
+        // Operations
+        public ListSiteForms ListSiteForms() => new ListSiteForms(Client, Id);
 
         // Used for testing
         internal void SetId(string id) => Id = id;

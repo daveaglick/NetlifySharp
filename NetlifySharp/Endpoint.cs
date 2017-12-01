@@ -2,7 +2,7 @@
 
 namespace NetlifySharp
 {
-    internal class Endpoint
+    public class Endpoint
     {
         private readonly string _endpoint;
 
@@ -11,13 +11,13 @@ namespace NetlifySharp
             _endpoint = endpoint;
         }
 
-        public Endpoint Append(string id, string paramName)
+        public Endpoint Append(string param, string paramName)
         {
-            if (string.IsNullOrWhiteSpace(id))
+            if (string.IsNullOrWhiteSpace(param))
             {
-                throw new ArgumentException("The ID cannot be null or empty", paramName);
+                throw new ArgumentException("The path parameter cannot be null or empty", paramName);
             }
-            return new Endpoint($"{_endpoint}/{id}");
+            return new Endpoint($"{_endpoint}/{param}");
         }
 
         public Endpoint Append(Endpoint endpoint) => new Endpoint($"{_endpoint}/{endpoint._endpoint}");

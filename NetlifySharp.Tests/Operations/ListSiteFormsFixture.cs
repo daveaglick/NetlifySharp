@@ -1,15 +1,12 @@
-﻿using NetlifySharp.Models;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Shouldly;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using NetlifySharp.Models;
 
-namespace NetlifySharp.Tests.Models
+namespace NetlifySharp.Tests.Operations
 {
     [TestFixture]
-    public class SiteFixture
+    public class ListSiteFormsFixture
     {
         [Test]
         public void ListSiteFormsUsesCorrectEndpoint()
@@ -17,14 +14,9 @@ namespace NetlifySharp.Tests.Models
             // Given
             TestApiClient apiClient = new TestApiClient();
             NetlifyClient client = new NetlifyClient(apiClient);
-            Site site = new Site
-            {
-                Client = client
-            };
-            site.SetId("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f");
 
             // When
-            Form[] result = site.ListSiteForms().SendAsync().Result;
+            Form[] result = client.ListSiteForms("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f").SendAsync().Result;
 
             // Then
             apiClient.Requests[0].Method.ShouldBe(HttpMethod.Get);

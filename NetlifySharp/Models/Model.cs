@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NetlifySharp.Models
 {
-    public class Model
+    public abstract class Model
     {
         public NetlifyClient Client { get; internal set; }
 

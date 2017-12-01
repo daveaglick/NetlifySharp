@@ -9,7 +9,7 @@ namespace NetlifySharp
 {
     internal class ApiClient : IApiClient
     {
-        internal static Endpoint ApiEndpoint = new Endpoint("https://api.netlify.com/api/v1");
+        public Endpoint Endpoint { get; } = new Endpoint("https://api.netlify.com/api/v1");
 
         private readonly HttpClient _httpClient = new HttpClient();
 
@@ -28,16 +28,9 @@ namespace NetlifySharp
             _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
         }
 
-        public async Task<Stream> SendAndReadAsync(
-            HttpMethod method,
-            Endpoint endpoint,
-            Action<HttpRequestMessage> customizeRequest = null,
-            CancellationToken cancellationToken = default(CancellationToken))
-        {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ApiEndpoint.Append(endpoint));
-            customizeRequest?.Invoke(request);
-            HttpResponseMessage response = await _httpClient.SendAsync(request, cancellationToken);
-            return await response.Content.ReadAsStreamAsync();
-        }
+        public async Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
+            CancellationToken cancellationToken) =>
+            await _httpClient.SendAsync(request, cancellationToken);
     }
 }

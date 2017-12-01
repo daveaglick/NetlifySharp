@@ -8,10 +8,7 @@ namespace NetlifySharp
 {
     internal interface IApiClient
     {
-        Task<Stream> SendAndReadAsync(
-            HttpMethod method,
-            Endpoint endpoint,
-            Action<HttpRequestMessage> customizeRequest = null,
-            CancellationToken cancellationToken = default(CancellationToken));
+        Endpoint Endpoint { get; }
+        Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken);
     }
 }

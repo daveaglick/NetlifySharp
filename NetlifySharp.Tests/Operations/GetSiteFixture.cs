@@ -4,41 +4,11 @@ using Shouldly;
 using System;
 using System.Net.Http;
 
-namespace NetlifySharp.Tests
+namespace NetlifySharp.Tests.Operations
 {
     [TestFixture]
-    public class NetlifyClientFixture
+    public class GetSiteFixture
     {
-        [Test]
-        public void GetSitesUsesCorrectEndpoint()
-        {
-            // Given
-            TestApiClient apiClient = new TestApiClient();
-            NetlifyClient client = new NetlifyClient(apiClient);
-
-            // When
-            Site[] result = client.GetSitesAsync().Result;
-
-            // Then
-            apiClient.SendAndReadCalls.ShouldContain((HttpMethod.Get, "sites"));
-        }
-
-        [Test]
-        public void GetSitesParsesJson()
-        {
-            // Given
-            TestApiClient apiClient = new TestApiClient().WithResourceRespose("Sites.json");
-            NetlifyClient client = new NetlifyClient(apiClient);
-
-            // When
-            Site[] result = client.GetSitesAsync().Result;
-
-            // Then
-            result.Length.ShouldBe(2);
-            VerifySite(result[0]);
-            result[1].Id.ShouldBe("46b48455-90b4-4559-8233-6f6d08194696");
-        }
-
         [Test]
         public void GetSiteUsesCorrectEndpoint()
         {
@@ -47,56 +17,29 @@ namespace NetlifySharp.Tests
             NetlifyClient client = new NetlifyClient(apiClient);
 
             // When
-            Site result = client.GetSiteAsync("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f").Result;
+            Site result = client.GetSite("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f").SendAsync().Result;
 
             // Then
-            apiClient.SendAndReadCalls.ShouldContain((HttpMethod.Get, "sites/50e9bfc8-e242-428d-ba2b-3ae7c2d9863f"));
+            apiClient.Requests[0].Method.ShouldBe(HttpMethod.Get);
+            apiClient.Requests[0].RequestUri.ToString().ShouldBe("/sites/50e9bfc8-e242-428d-ba2b-3ae7c2d9863f");
         }
 
         [Test]
         public void GetSiteParsesJson()
         {
             // Given
-            TestApiClient apiClient = new TestApiClient().WithResourceRespose("Site.json");
+            TestApiClient apiClient = new TestApiClient().WithResourceResposeContent("Site.json");
             NetlifyClient client = new NetlifyClient(apiClient);
 
             // When
-            Site result = client.GetSiteAsync("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f").Result;
+            Site result = client.GetSite("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f").SendAsync().Result;
 
             // Then
             result.ShouldNotBeNull();
             VerifySite(result);
         }
 
-        [Test]
-        public void GetFormsUsesCorrectEndpoint()
-        {
-            // Given
-            TestApiClient apiClient = new TestApiClient();
-            NetlifyClient client = new NetlifyClient(apiClient);
-
-            // When
-            Form[] result = client.GetFormsAsync().Result;
-
-            // Then
-            apiClient.SendAndReadCalls.ShouldContain((HttpMethod.Get, "forms"));
-        }
-
-        [Test]
-        public void GetFormsForSiteUsesCorrectEndpoint()
-        {
-            // Given
-            TestApiClient apiClient = new TestApiClient();
-            NetlifyClient client = new NetlifyClient(apiClient);
-
-            // When
-            Form[] result = client.GetFormsAsync("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f").Result;
-
-            // Then
-            apiClient.SendAndReadCalls.ShouldContain((HttpMethod.Get, "sites/50e9bfc8-e242-428d-ba2b-3ae7c2d9863f/forms"));
-        }
-
-        private void VerifySite(Site site)
+        public static void VerifySite(Site site)
         {
             site.Id.ShouldBe("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f");
             site.SiteId.ShouldBe("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f");
