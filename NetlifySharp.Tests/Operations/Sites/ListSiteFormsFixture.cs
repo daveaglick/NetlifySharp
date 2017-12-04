@@ -3,7 +3,7 @@ using Shouldly;
 using System.Net.Http;
 using NetlifySharp.Models;
 
-namespace NetlifySharp.Tests.Operations
+namespace NetlifySharp.Tests.Operations.Sites
 {
     [TestFixture]
     public class ListSiteFormsFixture

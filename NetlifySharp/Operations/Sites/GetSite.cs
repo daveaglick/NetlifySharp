@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using NetlifySharp.Models;
 
-namespace NetlifySharp.Operations
+namespace NetlifySharp.Operations.Sites
 {
     public class GetSite : Operation<Site, GetSite>
     {

@@ -4,7 +4,7 @@ using Shouldly;
 using System;
 using System.Net.Http;
 
-namespace NetlifySharp.Tests.Operations
+namespace NetlifySharp.Tests.Operations.Sites
 {
     [TestFixture]
     public class GetSiteFixture

@@ -17,14 +17,11 @@ namespace NetlifySharp.Tests.Models
             // Given
             TestApiClient apiClient = new TestApiClient();
             NetlifyClient client = new NetlifyClient(apiClient);
-            Site site = new Site
-            {
-                Client = client
-            };
-            site.SetId("50e9bfc8-e242-428d-ba2b-3ae7c2d9863f");
+            Site site = new Site();
+            site.Id = "50e9bfc8-e242-428d-ba2b-3ae7c2d9863f";
 
             // When
-            Form[] result = site.ListSiteForms().SendAsync().Result;
+            Form[] result = site.ListSiteForms(client).SendAsync().Result;
 
             // Then
             apiClient.Requests[0].Method.ShouldBe(HttpMethod.Get);

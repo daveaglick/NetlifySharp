@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
-namespace NetlifySharp.Tests.Operations
+namespace NetlifySharp.Tests.Operations.Sites
 {
     [TestFixture]
     public class ListSitesFixture

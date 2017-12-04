@@ -2,7 +2,9 @@
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System;
-using NetlifySharp.Operations;
+using NetlifySharp.Operations.Sites;
+using NetlifySharp.Operations.Forms;
+using NetlifySharp.Models;
 
 [assembly: InternalsVisibleTo("NetlifySharp.Tests")]
 

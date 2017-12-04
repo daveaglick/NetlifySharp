@@ -6,8 +6,6 @@ namespace NetlifySharp.Models
 {
     public abstract class Model
     {
-        public NetlifyClient Client { get; internal set; }
-
         [JsonExtensionData]
         public IDictionary<string, JToken> AdditionalData { get; private set; }
     }

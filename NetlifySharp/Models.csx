@@ -108,7 +108,7 @@ public void WriteProperties(string containingName, TextWriter writer, JObject de
         {
             string propertyName = containingName + ToCamelCase(property.Name);
             writer.Write($@"
-        public { GetPropertyType(propertyName, (JObject)property.Value, writeObjects) } { ToCamelCase(property.Name) } {{ get; private set; }}");
+        public { GetPropertyType(propertyName, (JObject)property.Value, writeObjects) } { ToCamelCase(property.Name) } {{ get; set; }}");
         }
     }
 }
