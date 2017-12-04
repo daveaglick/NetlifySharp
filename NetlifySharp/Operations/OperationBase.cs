@@ -43,7 +43,7 @@ namespace NetlifySharp.Operations
             return (TThis)this;
         }
         
-        protected virtual HttpRequestMessage GetRequest()
+        protected virtual HttpRequestMessage GetRequest(CancellationToken cancellationToken)
         {
             string uriString = Client.ApiClient.Endpoint.Append(Endpoint)
                 + (Query.Count > 0
@@ -60,16 +60,20 @@ namespace NetlifySharp.Operations
         protected async Task<HttpResponseMessage> GetResponseAsync(CancellationToken cancellationToken)
         {
             // Generate the request
-            HttpRequestMessage request = GetRequest();
-            Client.RequestHandler?.Invoke(request);
-            RequestHandler?.Invoke(request);
+            using (HttpRequestMessage request = GetRequest(cancellationToken))
+            {
+                Client.RequestHandler?.Invoke(request);
+                RequestHandler?.Invoke(request);
 
-            // Send it to the API and handle response
-            HttpResponseMessage response = await Client.ApiClient.SendAsync(request, cancellationToken);
-            await ProcessResponse(response);
-            Client.ResponseHandler?.Invoke(response);
-            ResponseHandler?.Invoke(response);
-            return response;
+                // Send it to the API and handle response
+                using (HttpResponseMessage response = await Client.ApiClient.SendAsync(request, cancellationToken))
+                {
+                    await ProcessResponse(response);
+                    Client.ResponseHandler?.Invoke(response);
+                    ResponseHandler?.Invoke(response);
+                    return response;
+                }
+            }
         }
 
         protected virtual async Task ProcessResponse(HttpResponseMessage response)

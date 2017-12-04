@@ -5,6 +5,7 @@ using System;
 using NetlifySharp.Operations.Sites;
 using NetlifySharp.Operations.Forms;
 using NetlifySharp.Models;
+using System.IO;
 
 [assembly: InternalsVisibleTo("NetlifySharp.Tests")]
 
@@ -39,6 +40,8 @@ namespace NetlifySharp
         public GetSite GetSite(string siteId) => new GetSite(this, siteId);
         public DeleteSite DeleteSite(string siteId) => new DeleteSite(this, siteId);
         public UpdateSite UpdateSite(string siteId, SiteSetup siteSetup) => new UpdateSite(this, siteId, siteSetup);
+        public UpdateSite UpdateSite(string siteId, FileInfo zipFile) => new UpdateSite(this, siteId, zipFile);
+        public UpdateSite UpdateSite(string siteId, DirectoryInfo directory) => new UpdateSite(this, siteId, directory);
         public ListForms ListForms() => new ListForms(this);
         public ListSiteForms ListSiteForms(string siteId) => new ListSiteForms(this, siteId);
     }
