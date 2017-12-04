@@ -11,11 +11,11 @@ namespace NetlifySharp
             _endpoint = endpoint;
         }
 
-        public Endpoint Append(string param, string paramName)
+        public Endpoint Append(string param)
         {
-            if (string.IsNullOrWhiteSpace(param))
+            if (string.IsNullOrEmpty(param))
             {
-                throw new ArgumentException("The path parameter cannot be null or empty", paramName);
+                return this;
             }
             return new Endpoint($"{_endpoint}/{param}");
         }

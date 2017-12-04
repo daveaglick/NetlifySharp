@@ -16,10 +16,12 @@ namespace NetlifySharp.Models
 
         // Not in Open API specification
         public string SiteId { get; set; }
-        public bool Premium { get; set; }
-        public bool Claimed { get; set; }
+        public bool? Premium { get; set; }
+        public bool? Claimed { get; set; }
 
         // Operations
+        public DeleteSite DeleteSite(NetlifyClient client) => new DeleteSite(client, Id);
+        public UpdateSite UpdateSite(NetlifyClient client, SiteSetup siteSetup) => new UpdateSite(client, Id, siteSetup);
         public ListSiteForms ListSiteForms(NetlifyClient client) => new ListSiteForms(client, Id);
     }
 }

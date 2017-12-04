@@ -1,13 +1,11 @@
 ﻿using System.Net.Http;
-using System.Runtime.CompilerServices;
-using NetlifySharp.Models;
 
 namespace NetlifySharp.Operations.Sites
 {
-    public class GetSite : ResponseOperation<Site, GetSite>
+    public class DeleteSite : Operation<DeleteSite>
     {
-        internal GetSite(NetlifyClient client, string siteId)
-            : base(client, NetlifyClient.SitesEndpoint.Append(siteId), HttpMethod.Get)
+        internal DeleteSite(NetlifyClient client, string siteId)
+            : base(client, NetlifyClient.SitesEndpoint.Append(siteId), HttpMethod.Delete)
         {
             if (string.IsNullOrEmpty(siteId))
             {

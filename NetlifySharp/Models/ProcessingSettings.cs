@@ -7,6 +7,6 @@
         public JsProcessingSettings Js { get; set; }
         public ImagesProcessingSettings Images { get; set; }
         public HtmlProcessingSettings Html { get; set; }
-        public bool Skip { get; set; }
+        public bool? Skip { get; set; }
     }
 }

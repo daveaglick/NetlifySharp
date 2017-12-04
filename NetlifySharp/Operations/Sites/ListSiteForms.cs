@@ -4,14 +4,15 @@ using NetlifySharp.Models;
 
 namespace NetlifySharp.Operations.Sites
 {
-    public class ListSiteForms : Operation<Form[], ListSiteForms>
+    public class ListSiteForms : PagedOperation<Form[], ListSiteForms>
     {
         internal ListSiteForms(NetlifyClient client, string siteId)
-            : base(
-                  client,
-                  NetlifyClient.SitesEndpoint.Append(siteId, nameof(siteId)).Append(NetlifyClient.FormsEndpoint),
-                  HttpMethod.Get)
+            : base(client, NetlifyClient.SitesEndpoint.Append(siteId).Append(NetlifyClient.FormsEndpoint), HttpMethod.Get)
         {
+            if (string.IsNullOrEmpty(siteId))
+            {
+                throw new System.ArgumentException("A site ID must be provided", nameof(siteId));
+            }
         }
     }
 }

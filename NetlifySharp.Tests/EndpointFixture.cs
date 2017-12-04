@@ -10,33 +10,13 @@ namespace NetlifySharp.Tests
     public class EndpointFixture
     {
         [Test]
-        public void ShouldThrowForNullIdWithParamName()
-        {
-            // Given
-            Endpoint endpoint = new Endpoint("foo");
-
-            // When, Then
-            Should.Throw<ArgumentException>(() => endpoint.Append(null, "bar")).Message.ShouldContain("bar");
-        }
-
-        [Test]
-        public void ShouldThrowForEmptyIdWithParamName()
-        {
-            // Given
-            Endpoint endpoint = new Endpoint("foo");
-
-            // When, Then
-            Should.Throw<ArgumentException>(() => endpoint.Append(string.Empty, "bar")).Message.ShouldContain("bar");
-        }
-
-        [Test]
         public void ShouldAppendIdWithSlashDelimiter()
         {
             // Given
             Endpoint foo = new Endpoint("foo");
 
             // When
-            Endpoint foobar = foo.Append("12345", "bar");
+            Endpoint foobar = foo.Append("12345");
 
             // Then
             foobar.ToString().ShouldBe("foo/12345");

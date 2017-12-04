@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace NetlifySharp
 {
     // From https://stackoverflow.com/a/25336147
-    internal class JsonContent : HttpContent
+    public class JsonContent : HttpContent
     {
         private readonly NetlifyClient _client;
         private readonly object _serializationTarget;

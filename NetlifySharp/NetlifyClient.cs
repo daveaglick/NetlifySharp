@@ -31,15 +31,15 @@ namespace NetlifySharp
         }
 
         public Action<HttpRequestMessage> RequestHandler { get; set; }
-
         public Action<HttpResponseMessage> ResponseHandler { get; set; }
 
+        // Operations
         public ListSites ListSites() => new ListSites(this);
-
+        public CreateSite CreateSite(SiteCreate siteCreate) => new CreateSite(this, siteCreate);
         public GetSite GetSite(string siteId) => new GetSite(this, siteId);
-
+        public DeleteSite DeleteSite(string siteId) => new DeleteSite(this, siteId);
+        public UpdateSite UpdateSite(string siteId, SiteSetup siteSetup) => new UpdateSite(this, siteId, siteSetup);
         public ListForms ListForms() => new ListForms(this);
-
         public ListSiteForms ListSiteForms(string siteId) => new ListSiteForms(this, siteId);
     }
 }
