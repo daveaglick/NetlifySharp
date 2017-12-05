@@ -16,7 +16,12 @@ namespace NetlifySharp
         internal static Endpoint SitesEndpoint = new Endpoint("sites");
         internal static Endpoint FormsEndpoint = new Endpoint("forms");
 
-        internal JsonSerializer Serializer { get; } = new JsonSerializer();
+        internal JsonSerializer Serializer { get; } = new JsonSerializer
+        {
+            MissingMemberHandling = MissingMemberHandling.Ignore,
+            NullValueHandling = NullValueHandling.Ignore
+        };
+
         internal IApiClient ApiClient { get; }
 
         public NetlifyClient(string accessToken)
@@ -27,7 +32,6 @@ namespace NetlifySharp
         internal NetlifyClient(IApiClient apiClient)
         {
             Serializer.ContractResolver = new ClientContractResolver(this);
-            Serializer.MissingMemberHandling = MissingMemberHandling.Ignore;
             ApiClient = apiClient;
         }
 
@@ -36,12 +40,12 @@ namespace NetlifySharp
 
         // Operations
         public ListSites ListSites() => new ListSites(this);
-        public CreateSite CreateSite(SiteCreate siteCreate) => new CreateSite(this, siteCreate);
+        public CreateSite CreateSite(SiteSetup siteSetup) => new CreateSite(this, siteSetup);
         public GetSite GetSite(string siteId) => new GetSite(this, siteId);
         public DeleteSite DeleteSite(string siteId) => new DeleteSite(this, siteId);
         public UpdateSite UpdateSite(string siteId, SiteSetup siteSetup) => new UpdateSite(this, siteId, siteSetup);
-        public UpdateSite UpdateSite(string siteId, FileInfo zipFile) => new UpdateSite(this, siteId, zipFile);
-        public UpdateSite UpdateSite(string siteId, DirectoryInfo directory) => new UpdateSite(this, siteId, directory);
+        public UpdateSite UpdateSite(string siteId, Stream zipStream) => new UpdateSite(this, siteId, zipStream);
+        public UpdateSite UpdateSite(string siteId, string directory) => new UpdateSite(this, siteId, directory);
         public ListForms ListForms() => new ListForms(this);
         public ListSiteForms ListSiteForms(string siteId) => new ListSiteForms(this, siteId);
     }

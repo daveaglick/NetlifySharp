@@ -60,7 +60,10 @@ using System;
 namespace NetlifySharp.Models
 {{
     public partial class {className} : Model
-    {{");
+    {{
+        public {className}(NetlifyClient client) : base(client)
+        {{
+        }}");
         WriteProperties(name, writer, definition, definitions, true);
         writer.Write($@"
     }}

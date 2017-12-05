@@ -5,10 +5,10 @@ namespace NetlifySharp.Operations.Sites
 {
     public class CreateSite : ResponseOperation<Site, CreateSite>
     {
-        internal CreateSite(NetlifyClient client, SiteCreate siteCreate)
+        internal CreateSite(NetlifyClient client, SiteSetup siteSetup)
             : base(client, NetlifyClient.SitesEndpoint, HttpMethod.Post)
         {
-            Body = siteCreate;
+            Body = siteSetup;
         }
 
         public CreateSite WithConfigureDns(bool configureDns)

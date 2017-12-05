@@ -32,7 +32,7 @@ namespace NetlifySharp
                     return;
                 }
 
-                using (StreamWriter writer = new StreamWriter(stream))
+                using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8, 1024, true))
                 {
                     using (JsonTextWriter jsonWriter = new JsonTextWriter(writer))
                     {

@@ -19,48 +19,40 @@ namespace NetlifySharp.Operations.Sites
             {
                 throw new ArgumentException("A site ID must be provided", nameof(siteId));
             }
-            if (siteSetup == null)
-            {
-                throw new ArgumentNullException(nameof(siteSetup));
-            }
 
-            Body = siteSetup;
+            Body = siteSetup ?? throw new ArgumentNullException(nameof(siteSetup));
             _getRequest = ct => base.GetRequest(ct);
         }
 
         // Not in Open API specification
-        internal UpdateSite(NetlifyClient client, string siteId, FileInfo zipFile)
+        internal UpdateSite(NetlifyClient client, string siteId, Stream zipStream)
             : base(client, NetlifyClient.SitesEndpoint.Append(siteId), HttpMethod.Put)
         {
-            if (zipFile == null)
+            if (zipStream == null)
             {
-                throw new ArgumentNullException(nameof(zipFile));
-            }
-            if (!zipFile.Exists)
-            {
-                throw new ArgumentException("The zip file must exist", nameof(zipFile));
+                throw new ArgumentNullException(nameof(zipStream));
             }
 
             _getRequest = ct =>
             {
                 HttpRequestMessage request = base.GetRequest(ct);
-                request.Content = new StreamContent(zipFile.OpenRead());
+                request.Content = new StreamContent(zipStream);
                 request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
                 return request;
             };
         }
 
         // Not in Open API specification
-        internal UpdateSite(NetlifyClient client, string siteId, DirectoryInfo directory)
+        internal UpdateSite(NetlifyClient client, string siteId, string directory)
             : base(client, NetlifyClient.SitesEndpoint.Append(siteId), HttpMethod.Put)
         {
             if (directory == null)
             {
                 throw new ArgumentNullException(nameof(directory));
             }
-            if (!directory.Exists)
+            if (!Directory.Exists(directory))
             {
-                throw new ArgumentException("The diretory must exist", nameof(directory));
+                throw new ArgumentException("The directory must exist", nameof(directory));
             }
 
             _getRequest = ct =>
@@ -69,10 +61,12 @@ namespace NetlifySharp.Operations.Sites
                 MemoryStream zipStream = new MemoryStream();
                 using (ZipArchive zipArchive = new ZipArchive(zipStream, ZipArchiveMode.Create, true))
                 {
-                    foreach(string file in Directory.EnumerateFiles(directory.FullName, "*", SearchOption.AllDirectories))
+                    directory = Path.GetFullPath(directory);
+                    int startIndex = directory.Length + 1;
+                    foreach (string file in Directory.EnumerateFiles(directory, "*", SearchOption.AllDirectories))
                     {
-                        zipArchive.CreateEntryFromFile(file,
-                            Path.GetFullPath(directory.FullName).Substring(Path.GetFullPath(file).Length + 1));
+                        // We need to normalize the path separator so non-Windows Netlify systems can unzip it
+                        zipArchive.CreateEntryFromFile(file, Path.GetFullPath(file).Substring(startIndex).Replace('\\', '/'));
                     }
                 }
                 zipStream.Position = 0;

@@ -1,5 +1,6 @@
 ﻿using NetlifySharp.Operations.Sites;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,8 +21,10 @@ namespace NetlifySharp.Models
         public bool? Claimed { get; set; }
 
         // Operations
-        public DeleteSite DeleteSite(NetlifyClient client) => new DeleteSite(client, Id);
-        public UpdateSite UpdateSite(NetlifyClient client, SiteSetup siteSetup) => new UpdateSite(client, Id, siteSetup);
-        public ListSiteForms ListSiteForms(NetlifyClient client) => new ListSiteForms(client, Id);
+        public DeleteSite DeleteSite() => new DeleteSite(Client, Id);
+        public UpdateSite UpdateSite(SiteSetup siteSetup) => new UpdateSite(Client, Id, siteSetup);
+        public UpdateSite UpdateSite(Stream zipStream) => new UpdateSite(Client, Id, zipStream);
+        public UpdateSite UpdateSite(string directory) => new UpdateSite(Client, Id, directory);
+        public ListSiteForms ListSiteForms() => new ListSiteForms(Client, Id);
     }
 }

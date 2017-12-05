@@ -2,7 +2,7 @@
 
 namespace NetlifySharp.Operations.Sites
 {
-    public class DeleteSite : Operation<DeleteSite>
+    public class DeleteSite : VoidOperation<DeleteSite>
     {
         internal DeleteSite(NetlifyClient client, string siteId)
             : base(client, NetlifyClient.SitesEndpoint.Append(siteId), HttpMethod.Delete)

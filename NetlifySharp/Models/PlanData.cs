@@ -1,8 +1,12 @@
 ﻿namespace NetlifySharp.Models
 {
     // Not in Open API specification (https://github.com/netlify/open-api/issues/49)
-    public class PlanData : Model
+    public partial class PlanData : Model
     {
+        public PlanData(NetlifyClient client) : base(client)
+        {
+        }
+
         public string Title { get; set; }
         public bool? AssetAcceleration { get; set; }
         public bool? FormProcessing { get; set; }

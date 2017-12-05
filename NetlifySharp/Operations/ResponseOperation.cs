@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace NetlifySharp.Operations
 {
-    public abstract class ResponseOperation<TResponse, TThis> : OperationBase<TThis>
+    public abstract class ResponseOperation<TResponse, TThis> : Operation<TThis>
         where TResponse : class
         where TThis : ResponseOperation<TResponse, TThis>
     {
@@ -15,12 +15,10 @@ namespace NetlifySharp.Operations
         {
         }
 
-        public async Task<TResponse> SendAsync(CancellationToken cancellationToken = default(CancellationToken))
-        {
-            HttpResponseMessage response = await GetResponseAsync(cancellationToken);
-            return await ReadResponse(response);
-        }
+        public async Task<TResponse> SendAsync(CancellationToken cancellationToken = default(CancellationToken)) => 
+            await GetResponseAsync<TResponse>(cancellationToken);
 
-        protected virtual async Task<TResponse> ReadResponse(HttpResponseMessage response) => await ReadJsonResponse<TResponse>(response);
+        protected override async Task<TResponse> ReadResponseAsync<TResponse>(HttpResponseMessage response) => 
+            await ReadJsonResponseAsync<TResponse>(response);
     }
 }

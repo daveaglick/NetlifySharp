@@ -26,8 +26,17 @@ namespace NetlifySharp
                 property.Writable = propertyInfo?.GetSetMethod(true) != null;
             }
 
-            // Convert between snake case in JSON and pascal case in .NET
-            property.PropertyName = ToSnakeCase(property.PropertyName);
+            if (propertyInfo?.PropertyType == typeof(NetlifyClient))
+            {
+                // Inject a value for the client
+                property.DefaultValueHandling = DefaultValueHandling.Populate;
+                property.DefaultValue = _client;
+            }
+            else
+            {
+                // Convert between snake case in JSON and pascal case in .NET
+                property.PropertyName = ToSnakeCase(property.PropertyName);
+            }
 
             return property;
         }
