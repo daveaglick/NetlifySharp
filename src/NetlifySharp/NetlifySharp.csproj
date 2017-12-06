@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Dave Glick</Authors>
+    <Company />
+    <Product />
+    <Description>A .NET API Client for Netlify </Description>
+    <Version>0.0.0</Version>
+    <FileVersion>0.0.0</FileVersion>
+    <PackageProjectUrl>https://github.com/daveaglick/NetlifySharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/daveaglick/NetlifySharp.git</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/daveaglick/NetlifySharp/blob/master/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Scripty.MsBuild" Version="0.7.4">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CodeGen\**" />
+    <EmbeddedResource Remove="CodeGen\**" />
+    <None Remove="CodeGen\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <NewtonsoftJsonFiles Include="$(NuGetPackageRoot)\Newtonsoft.Json\10.0.3\lib\netstandard1.3\**\*.*" />
+  </ItemGroup>
+
+  <Target Name="CopyLibsForCodeGen" AfterTargets="Restore" BeforeTargets="EvaluateScriptyFiles">
+    <Copy SourceFiles="@(NewtonsoftJsonFiles)" DestinationFolder="$(SolutionDir)CodeGenLibs" />
+  </Target>
+</Project>

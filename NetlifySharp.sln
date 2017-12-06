@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetlifySharp", "NetlifySharp\NetlifySharp.csproj", "{069F922F-EF0D-4C91-8696-F2CE3CB69175}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetlifySharp", "src\NetlifySharp\NetlifySharp.csproj", "{069F922F-EF0D-4C91-8696-F2CE3CB69175}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetlifySharp.Tests", "NetlifySharp.Tests\NetlifySharp.Tests.csproj", "{7AB01439-2E8A-472D-ABF6-C69ACC8399B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetlifySharp.Tests", "tests\NetlifySharp.Tests\NetlifySharp.Tests.csproj", "{7AB01439-2E8A-472D-ABF6-C69ACC8399B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5C28773E-9E89-4DF6-8F5F-89CA15F68787}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02CD4DF5-A87E-4F6E-BA75-1D666B41FA6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{069F922F-EF0D-4C91-8696-F2CE3CB69175} = {02CD4DF5-A87E-4F6E-BA75-1D666B41FA6D}
+		{7AB01439-2E8A-472D-ABF6-C69ACC8399B5} = {5C28773E-9E89-4DF6-8F5F-89CA15F68787}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90CF7B65-E9A8-48AF-9B49-5A8DFA3FA7C3}

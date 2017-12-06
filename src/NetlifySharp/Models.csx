@@ -1,4 +1,4 @@
-﻿#r "..\CodeGenLibs\Newtonsoft.Json.dll"
+﻿#r "..\..\CodeGenLibs\Newtonsoft.Json.dll"
 
 using System;
 using System.IO;

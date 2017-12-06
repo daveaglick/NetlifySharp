@@ -22,7 +22,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\NetlifySharp\NetlifySharp.csproj" />
+    <ProjectReference Include="..\..\src\NetlifySharp\NetlifySharp.csproj" />
   </ItemGroup>
 
 </Project>

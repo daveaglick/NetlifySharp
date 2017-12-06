@@ -18,7 +18,7 @@ namespace NetlifySharp.Operations
         public async Task<TResponse> SendAsync(CancellationToken cancellationToken = default(CancellationToken)) => 
             await GetResponseAsync<TResponse>(cancellationToken);
 
-        protected override async Task<TResponse> ReadResponseAsync<TResponse>(HttpResponseMessage response) => 
-            await ReadJsonResponseAsync<TResponse>(response);
+        protected override async Task<TReadResponse> ReadResponseAsync<TReadResponse>(HttpResponseMessage response) => 
+            await ReadJsonResponseAsync<TReadResponse>(response);
     }
 }
