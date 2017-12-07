@@ -10,9 +10,10 @@
     <Description>A .NET API Client for Netlify </Description>
     <Version>0.0.0</Version>
     <FileVersion>0.0.0</FileVersion>
-    <PackageProjectUrl>https://github.com/daveaglick/NetlifySharp</PackageProjectUrl>
+    <PackageProjectUrl>http://netlifysharp.netlify.com/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/daveaglick/NetlifySharp.git</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/daveaglick/NetlifySharp/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>netlify</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

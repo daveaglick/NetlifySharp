@@ -68,3 +68,15 @@ client.RequestHandler = x =>
 ```
 
 The request handler exposes a `HttpRequestMessage` and the response handler exposes a `HttpResponseMessage`.
+
+# Using In Cake
+
+If you want to use NetlifySharp in [Cake](https://cakebuild.net) you'll need to use Cake.CoreClr until the .NET Framework version of Cake targets a version of the framework that's compatible with .NET Standard 1.6. You'll also need to add all of the required NetlifySharp dependencies to your build script since Cake doesn't resolve transitive dependencies:
+
+```
+#addin "System.Runtime.Serialization.Formatters"
+#addin "Newtonsoft.Json"
+#addin "NetlifySharp"
+```
+
+NetlifySharp itself does this to deploy the website and docs so you can check the NetlifySharp repository for an example.

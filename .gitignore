@@ -31,8 +31,7 @@ bld/
 
 # Cake
 [Pp]ackages/
-[Tt]ools/*
-![Tt]ools/build.csproj
+[Tt]ools/
 
 # Docs
 docs/output/

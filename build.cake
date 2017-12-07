@@ -3,13 +3,12 @@
 // NETLIFYSHARP_GITHUB_TOKEN
 // NETLIFYSHARP_NETLIFY_TOKEN
 
-#addin "System.Net.Http"
-#reference "System.Threading.Tasks"
 #tool "Wyam"
 #addin "Cake.Wyam"
 #addin "Octokit"
 #addin "NetlifySharp"
 #addin "Newtonsoft.Json"
+#addin "System.Runtime.Serialization.Formatters"
 
 using Octokit;
 using NetlifySharp;
@@ -199,7 +198,7 @@ Task("Docs")
         });  
     });
 
-Task("Deploy")
+Task("Web")
     .Description("Generates and deploys the docs.")
     .IsDependentOn("Build")
     .Does(() =>
@@ -212,6 +211,8 @@ Task("Deploy")
             Theme = "Samson",
             UpdatePackages = true
         });  
+
+        Information("Deploying output to Netlify");
         var client = new NetlifyClient(netlifyToken);
         client.UpdateSite("netlifysharp.netlify.com", MakeAbsolute(docsDir).FullPath + "/output").SendAsync().Wait();
     });
@@ -228,7 +229,7 @@ Task("Publish")
     .Description("Generates a GitHub release, pushes the NuGet package, and deploys the docs site.")
     .IsDependentOn("Release")
     .IsDependentOn("Push")
-    .IsDependentOn("Deploy");
+    .IsDependentOn("Web");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION

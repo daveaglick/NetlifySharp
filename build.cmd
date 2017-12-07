@@ -1,2 +1,2 @@
 @echo off
-dotnet run --project="tools\build.csproj" build.cake %*
+powershell -ExecutionPolicy Unrestricted ./build.ps1 %CAKE_ARGS% %*
