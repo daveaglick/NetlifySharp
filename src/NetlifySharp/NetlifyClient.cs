@@ -11,6 +11,10 @@ using System.IO;
 
 namespace NetlifySharp
 {
+    /// <summary>
+    /// The primary client class for accessing the Netlify API. This class is
+    /// thread-safe and one instance should be used per application.
+    /// </summary>
     public class NetlifyClient
     {
         internal static Endpoint SitesEndpoint = new Endpoint("sites");
@@ -24,6 +28,10 @@ namespace NetlifySharp
 
         internal IApiClient ApiClient { get; }
 
+        /// <summary>
+        /// Creates a Netlify client using a personal access token.
+        /// </summary>
+        /// <param name="accessToken">The access token to use for authentication with the Netlify API.</param>
         public NetlifyClient(string accessToken)
             : this(new ApiClient(accessToken))
         {
@@ -35,7 +43,14 @@ namespace NetlifySharp
             ApiClient = apiClient;
         }
 
+        /// <summary>
+        /// Allows global customization of all requests sent to the Netlify API.
+        /// </summary>
         public Action<HttpRequestMessage> RequestHandler { get; set; }
+
+        /// <summary>
+        /// Allows global customization of all responses received from the Netlify API.
+        /// </summary>
         public Action<HttpResponseMessage> ResponseHandler { get; set; }
 
         // Operations

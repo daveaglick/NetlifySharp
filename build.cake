@@ -3,8 +3,8 @@
 // NETLIFYSHARP_GITHUB_TOKEN
 // NETLIFYSHARP_NETLIFY_TOKEN
 
-#tool "Wyam"
-#addin "Cake.Wyam"
+#tool "nuget:https://api.nuget.org/v3/index.json?package=Wyam&version=1.4.1"
+#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Wyam&version=1.4.1"
 #addin "Octokit"
 #addin "NetlifySharp"
 #addin "Newtonsoft.Json"
@@ -193,9 +193,11 @@ Task("Docs")
             RootPath = docsDir,
             Recipe = "Docs",
             Theme = "Samson",
-            UpdatePackages = true,
             Preview = true
-        });  
+        });
+
+        //StartProcess("../Wyam/src/clients/Wyam/bin/Debug/net462/wyam.exe",
+        //    "-a \"../../Wyam/tests/integration/Wyam.Examples.Tests/bin/Debug/net462/**/*.dll\" -r \"docs -i\" -t \"../../Wyam/themes/Docs/Samson\" -p 5080 " + MakeAbsolute(docsDir).FullPath);
     });
 
 Task("Web")
