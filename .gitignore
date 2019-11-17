@@ -25,20 +25,6 @@ bld/
 [Ll]og/
 [Bb]uild/
 
-# Code generation
-[Cc]odeGenLibs/
-[Cc]odeGen/
-
-# Cake
-[Pp]ackages/
-[Tt]ools/
-
-# Docs
-docs/output/
-docs/packages.xml
-docs/config.wyam.hash
-docs/config.wyam.dll
-
 # Visual Studio 2015 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
@@ -292,8 +278,13 @@ __pycache__/
 *.pyc
 
 # Cake - Uncomment if you are using it
-# tools/**
-# !tools/packages.config
+[tT]ools/
+
+# Docs
+docs/output/
+docs/config.wyam.packages.xml
+docs/config.wyam.hash
+docs/config.wyam.dll
 
 # Telerik's JustMock configuration file
 *.jmconfig
@@ -303,3 +294,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+*.ncrunchsolution
+
+*.ncrunchproject
