@@ -18,12 +18,10 @@ namespace NetlifySharp
     public partial class NetlifyClient 
     {
         private string _baseUrl = "https://api.netlify.com/api/v1";
-        private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
-        private NetlifyClient(System.Net.Http.HttpClient httpClient)
+        private NetlifyClient()
         {
-            _httpClient = httpClient; 
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
                 var settings = new Newtonsoft.Json.JsonSerializerSettings();
@@ -69,7 +67,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -115,6 +113,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -138,7 +138,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -187,6 +187,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -209,7 +211,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -255,6 +257,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -277,7 +281,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -326,6 +330,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -348,7 +354,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -392,6 +398,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -427,7 +435,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -474,6 +482,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -496,7 +506,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/ssl");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -542,6 +552,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -564,7 +576,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/forms");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -610,6 +622,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -632,7 +646,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/submissions");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -678,6 +692,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -700,7 +716,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/files");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -746,6 +762,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -768,7 +786,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/assets");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -814,6 +832,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -853,7 +873,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -900,6 +920,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -926,7 +948,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{asset_id}", System.Uri.EscapeDataString(ConvertToString(assetId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -972,6 +994,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1003,7 +1027,7 @@ namespace NetlifySharp
             urlBuilder_.Append(System.Uri.EscapeDataString("state") + "=").Append(System.Uri.EscapeDataString(ConvertToString(state, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1050,6 +1074,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1076,7 +1102,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{asset_id}", System.Uri.EscapeDataString(ConvertToString(assetId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1120,6 +1146,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1146,7 +1174,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{asset_id}", System.Uri.EscapeDataString(ConvertToString(assetId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1192,6 +1220,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1218,7 +1248,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{file_path}", System.Uri.EscapeDataString(ConvertToString(filePath, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1264,6 +1294,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1286,7 +1318,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/snippets");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1332,6 +1364,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1354,7 +1388,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/snippets");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1403,6 +1437,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1429,7 +1465,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{snippet_id}", System.Uri.EscapeDataString(ConvertToString(snippetId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1475,6 +1511,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1501,7 +1539,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{snippet_id}", System.Uri.EscapeDataString(ConvertToString(snippetId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1548,6 +1586,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1574,7 +1614,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{snippet_id}", System.Uri.EscapeDataString(ConvertToString(snippetId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1618,6 +1658,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1640,7 +1682,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/metadata");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1686,6 +1728,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1708,7 +1752,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/metadata");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1755,6 +1799,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1777,7 +1823,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/build_hooks");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1823,6 +1869,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1845,7 +1893,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/build_hooks");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1894,6 +1942,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1920,7 +1970,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1966,6 +2016,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -1992,7 +2044,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2039,6 +2091,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2065,7 +2119,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2109,6 +2163,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2131,7 +2187,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/deploys");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2177,6 +2233,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2204,7 +2262,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2253,6 +2311,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2279,7 +2339,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{deploy_id}", System.Uri.EscapeDataString(ConvertToString(deployId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2325,6 +2385,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2351,7 +2413,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{deploy_id}", System.Uri.EscapeDataString(ConvertToString(deployId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2400,6 +2462,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2426,7 +2490,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{deploy_id}", System.Uri.EscapeDataString(ConvertToString(deployId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2473,6 +2537,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2495,7 +2561,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/builds");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2541,6 +2607,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2563,7 +2631,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/builds");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2610,6 +2678,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2632,7 +2702,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/deployed-branches");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2678,6 +2748,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2700,7 +2772,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/builds/{build_id}");
             urlBuilder_.Replace("{build_id}", System.Uri.EscapeDataString(ConvertToString(buildId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2746,6 +2818,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2768,7 +2842,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/builds/{build_id}/log");
             urlBuilder_.Replace("{build_id}", System.Uri.EscapeDataString(ConvertToString(buildId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2815,6 +2889,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2837,7 +2913,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/builds/{build_id}/start");
             urlBuilder_.Replace("{build_id}", System.Uri.EscapeDataString(ConvertToString(buildId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2882,6 +2958,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2904,7 +2982,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/dns");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2950,6 +3028,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -2972,7 +3052,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/sites/{site_id}/dns");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3019,6 +3099,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3041,7 +3123,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/deploys/{deploy_id}");
             urlBuilder_.Replace("{deploy_id}", System.Uri.EscapeDataString(ConvertToString(deployId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3087,6 +3169,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3109,7 +3193,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/deploys/{deploy_id}/lock");
             urlBuilder_.Replace("{deploy_id}", System.Uri.EscapeDataString(ConvertToString(deployId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3156,6 +3240,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3178,7 +3264,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/deploys/{deploy_id}/unlock");
             urlBuilder_.Replace("{deploy_id}", System.Uri.EscapeDataString(ConvertToString(deployId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3225,6 +3311,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3256,7 +3344,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3305,6 +3393,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3340,7 +3430,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3389,6 +3479,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3412,7 +3504,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3458,6 +3550,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3480,7 +3574,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/forms/{form_id}/submissions");
             urlBuilder_.Replace("{form_id}", System.Uri.EscapeDataString(ConvertToString(formId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3526,6 +3620,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3549,7 +3645,7 @@ namespace NetlifySharp
             urlBuilder_.Append(System.Uri.EscapeDataString("site_id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3595,6 +3691,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3618,7 +3716,7 @@ namespace NetlifySharp
             urlBuilder_.Append(System.Uri.EscapeDataString("site_id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3667,6 +3765,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3689,7 +3789,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/hooks/{hook_id}");
             urlBuilder_.Replace("{hook_id}", System.Uri.EscapeDataString(ConvertToString(hookId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3735,6 +3835,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3757,7 +3859,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/hooks/{hook_id}");
             urlBuilder_.Replace("{hook_id}", System.Uri.EscapeDataString(ConvertToString(hookId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3806,6 +3908,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3828,7 +3932,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/hooks/{hook_id}");
             urlBuilder_.Replace("{hook_id}", System.Uri.EscapeDataString(ConvertToString(hookId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3873,6 +3977,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3895,7 +4001,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/hooks/{hook_id}/enable");
             urlBuilder_.Replace("{hook_id}", System.Uri.EscapeDataString(ConvertToString(hookId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3942,6 +4048,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -3960,7 +4068,7 @@ namespace NetlifySharp
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/hooks/types");
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4006,6 +4114,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4029,7 +4139,7 @@ namespace NetlifySharp
             urlBuilder_.Append(System.Uri.EscapeDataString("client_id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(clientId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4076,6 +4186,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4098,7 +4210,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/oauth/tickets/{ticket_id}");
             urlBuilder_.Replace("{ticket_id}", System.Uri.EscapeDataString(ConvertToString(ticketId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4144,6 +4256,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4166,7 +4280,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/oauth/tickets/{ticket_id}/exchange");
             urlBuilder_.Replace("{ticket_id}", System.Uri.EscapeDataString(ConvertToString(ticketId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4213,6 +4327,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4231,7 +4347,7 @@ namespace NetlifySharp
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/deploy_keys");
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4277,6 +4393,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4295,7 +4413,7 @@ namespace NetlifySharp
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/deploy_keys");
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4342,6 +4460,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4364,7 +4484,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/deploy_keys/{key_id}");
             urlBuilder_.Replace("{key_id}", System.Uri.EscapeDataString(ConvertToString(keyId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4410,6 +4530,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4432,7 +4554,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/deploy_keys/{key_id}");
             urlBuilder_.Replace("{key_id}", System.Uri.EscapeDataString(ConvertToString(keyId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4476,6 +4598,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4503,7 +4627,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4552,6 +4676,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4579,7 +4705,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4625,6 +4751,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4647,7 +4775,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/{account_slug}/members");
             urlBuilder_.Replace("{account_slug}", System.Uri.EscapeDataString(ConvertToString(accountSlug, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4693,6 +4821,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4724,7 +4854,7 @@ namespace NetlifySharp
             urlBuilder_.Append(System.Uri.EscapeDataString("email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4771,6 +4901,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4789,7 +4921,7 @@ namespace NetlifySharp
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/billing/payment_methods");
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4835,6 +4967,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4853,7 +4987,7 @@ namespace NetlifySharp
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/accounts/types");
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4899,6 +5033,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4917,7 +5053,7 @@ namespace NetlifySharp
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/accounts");
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4963,6 +5099,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -4981,7 +5119,7 @@ namespace NetlifySharp
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/accounts");
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5030,6 +5168,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5052,7 +5192,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/accounts/{account_id}");
             urlBuilder_.Replace("{account_id}", System.Uri.EscapeDataString(ConvertToString(accountId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5098,6 +5238,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5120,7 +5262,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/accounts/{account_id}");
             urlBuilder_.Replace("{account_id}", System.Uri.EscapeDataString(ConvertToString(accountId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5169,6 +5311,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5191,7 +5335,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/accounts/{account_id}");
             urlBuilder_.Replace("{account_id}", System.Uri.EscapeDataString(ConvertToString(accountId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5235,6 +5379,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5266,7 +5412,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5312,6 +5458,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5339,7 +5487,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5385,6 +5533,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5407,7 +5557,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/submissions/{submission_id}");
             urlBuilder_.Replace("{submission_id}", System.Uri.EscapeDataString(ConvertToString(submissionId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5451,6 +5601,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5477,7 +5629,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{addon}", System.Uri.EscapeDataString(ConvertToString(addon, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5526,6 +5678,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5552,7 +5706,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{addon}", System.Uri.EscapeDataString(ConvertToString(addon, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5598,6 +5752,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5624,7 +5780,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{addon}", System.Uri.EscapeDataString(ConvertToString(addon, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5671,6 +5827,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5697,7 +5855,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{addon}", System.Uri.EscapeDataString(ConvertToString(addon, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5741,6 +5899,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5764,7 +5924,7 @@ namespace NetlifySharp
             }
             urlBuilder_.Length--;
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5810,6 +5970,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5832,7 +5994,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/services/{addonName}");
             urlBuilder_.Replace("{addonName}", System.Uri.EscapeDataString(ConvertToString(addonName, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5878,6 +6040,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5900,7 +6064,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/services/{addonName}/manifest");
             urlBuilder_.Replace("{addonName}", System.Uri.EscapeDataString(ConvertToString(addonName, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5946,6 +6110,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -5964,7 +6130,7 @@ namespace NetlifySharp
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/user");
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6010,6 +6176,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -6032,7 +6200,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/site/{site_id}/traffic_splits");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6081,6 +6249,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -6103,7 +6273,7 @@ namespace NetlifySharp
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/site/{site_id}/traffic_splits");
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6149,6 +6319,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -6175,7 +6347,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{split_test_id}", System.Uri.EscapeDataString(ConvertToString(splitTestId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6224,6 +6396,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -6250,7 +6424,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{split_test_id}", System.Uri.EscapeDataString(ConvertToString(splitTestId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6296,6 +6470,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -6322,7 +6498,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{split_test_id}", System.Uri.EscapeDataString(ConvertToString(splitTestId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6367,6 +6543,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     
@@ -6393,7 +6571,7 @@ namespace NetlifySharp
             urlBuilder_.Replace("{site_id}", System.Uri.EscapeDataString(ConvertToString(siteId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{split_test_id}", System.Uri.EscapeDataString(ConvertToString(splitTestId, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = _httpClient;
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6438,6 +6616,8 @@ namespace NetlifySharp
             }
             finally
             {
+                if (client_ != null)
+                    client_.Dispose();
             }
         }
     

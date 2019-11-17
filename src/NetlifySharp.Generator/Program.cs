@@ -30,7 +30,9 @@ namespace NetlifySharp.Generator
                     PropertyNameGenerator = new PascalCasePropertyNameGenerator()
                 },
                 ParameterNameGenerator = new CamelCaseParameterNameGenerator(),
-                ExceptionClass = nameof(NetlifyException)
+                ExceptionClass = nameof(NetlifyException),
+                InjectHttpClient = false,
+                UseHttpClientCreationMethod = true
             };
             clientSettings.CSharpGeneratorSettings.TemplateFactory = new DelegatingTemplateFactory(
                 clientSettings.CSharpGeneratorSettings.TemplateFactory,

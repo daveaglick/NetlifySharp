@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Converters;
 
@@ -12,16 +13,26 @@ namespace NetlifySharp
     public partial class NetlifyClient
     {
         private readonly string _accessToken;
+        private readonly HttpClient _httpClient;  // The HttpClient if provided
+
+        public NetlifyClient(string accessToken)
+            : this(accessToken, null)
+        {
+        }
 
         public NetlifyClient(string accessToken, HttpClient httpClient)
-            : this(httpClient)
+            : this()
         {
             _accessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
             if (accessToken.Any(x => char.IsWhiteSpace(x) || char.IsControl(x)))
             {
                 throw new ArgumentException("Invalid access token", nameof(accessToken));
             }
+            _httpClient = httpClient;
         }
+
+        private Task<HttpClient> CreateHttpClientAsync(CancellationToken cancellationToken) =>
+            Task.FromResult(_httpClient == null ? new HttpClient() : new HttpClientWrapper(_httpClient));
 
         partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings)
         {
