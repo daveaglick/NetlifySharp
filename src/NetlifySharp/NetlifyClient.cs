@@ -25,7 +25,7 @@ namespace NetlifySharp
 
         partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings)
         {
-            settings.Converters.Add(new InjectClientConverter(this));
+            settings.Converters.Add(new ClientModelCreationConverter(this));
         }
 
         partial void PrepareRequest(HttpClient client, HttpRequestMessage request, string url)

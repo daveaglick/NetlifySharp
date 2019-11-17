@@ -17,6 +17,10 @@ namespace NetlifySharp.Generator
         public ITemplate CreateTemplate(string language, string templateName, object model)
         {
             ITemplate template = _defaultFactory.CreateTemplate(language, templateName, model);
+            if (templateName == "Class.Inheritance")
+            {
+                return new ClassInheritanceTemplate(template);
+            }
             if (templateName == "Class.Constructor")
             {
                 return new ClassConstructorTemplate((DotLiquid.Hash)model, _clientSettings);

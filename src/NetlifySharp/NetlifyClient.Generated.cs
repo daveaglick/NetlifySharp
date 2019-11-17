@@ -6535,7 +6535,7 @@ namespace NetlifySharp
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class SplitTestSetup 
+    public partial class SplitTestSetup : IClientModel
     {
         public SplitTestSetup(NetlifyClient client)
         {
@@ -6553,7 +6553,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class SplitTests : System.Collections.ObjectModel.Collection<SplitTest>
+    public partial class SplitTests : System.Collections.ObjectModel.Collection<SplitTest>, IClientModel
     {
         public SplitTests(NetlifyClient client)
         {
@@ -6568,7 +6568,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class SplitTest 
+    public partial class SplitTest : IClientModel
     {
         public SplitTest(NetlifyClient client)
         {
@@ -6610,7 +6610,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class ServiceInstance 
+    public partial class ServiceInstance : IClientModel
     {
         public ServiceInstance(NetlifyClient client)
         {
@@ -6661,7 +6661,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Service 
+    public partial class Service : IClientModel
     {
         public Service(NetlifyClient client)
         {
@@ -6715,7 +6715,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Site 
+    public partial class Site : IClientModel
     {
         public Site(NetlifyClient client)
         {
@@ -6823,7 +6823,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class SiteSetup : Site
+    public partial class SiteSetup : Site, IClientModel
     {
         public SiteSetup(NetlifyClient client) : base(client)
         {
@@ -6837,7 +6837,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class RepoInfo 
+    public partial class RepoInfo : IClientModel
     {
         public RepoInfo(NetlifyClient client)
         {
@@ -6891,7 +6891,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Submission 
+    public partial class Submission : IClientModel
     {
         public Submission(NetlifyClient client)
         {
@@ -6942,7 +6942,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Form 
+    public partial class Form : IClientModel
     {
         public Form(NetlifyClient client)
         {
@@ -6978,7 +6978,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class HookType 
+    public partial class HookType : IClientModel
     {
         public HookType(NetlifyClient client)
         {
@@ -7002,7 +7002,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Hook 
+    public partial class Hook : IClientModel
     {
         public Hook(NetlifyClient client)
         {
@@ -7041,7 +7041,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class File 
+    public partial class File : IClientModel
     {
         public File(NetlifyClient client)
         {
@@ -7071,7 +7071,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Function 
+    public partial class Function : IClientModel
     {
         public Function(NetlifyClient client)
         {
@@ -7095,7 +7095,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Snippet 
+    public partial class Snippet : IClientModel
     {
         public Snippet(NetlifyClient client)
         {
@@ -7131,7 +7131,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Deploy 
+    public partial class Deploy : IClientModel
     {
         public Deploy(NetlifyClient client)
         {
@@ -7233,7 +7233,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class DeployFiles 
+    public partial class DeployFiles : IClientModel
     {
         public DeployFiles(NetlifyClient client)
         {
@@ -7260,7 +7260,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Build 
+    public partial class Build : IClientModel
     {
         public Build(NetlifyClient client)
         {
@@ -7293,7 +7293,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class BuildLogMsg 
+    public partial class BuildLogMsg : IClientModel
     {
         public BuildLogMsg(NetlifyClient client)
         {
@@ -7314,7 +7314,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Metadata 
+    public partial class Metadata : IClientModel
     {
         public Metadata(NetlifyClient client)
         {
@@ -7329,7 +7329,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class DnsZone 
+    public partial class DnsZone : IClientModel
     {
         public DnsZone(NetlifyClient client)
         {
@@ -7353,7 +7353,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class DnsRecord 
+    public partial class DnsRecord : IClientModel
     {
         public DnsRecord(NetlifyClient client)
         {
@@ -7386,7 +7386,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class SniCertificate 
+    public partial class SniCertificate : IClientModel
     {
         public SniCertificate(NetlifyClient client)
         {
@@ -7416,7 +7416,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Ticket 
+    public partial class Ticket : IClientModel
     {
         public Ticket(NetlifyClient client)
         {
@@ -7443,7 +7443,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AccessToken 
+    public partial class AccessToken : IClientModel
     {
         public AccessToken(NetlifyClient client)
         {
@@ -7473,7 +7473,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Asset 
+    public partial class Asset : IClientModel
     {
         public Asset(NetlifyClient client)
         {
@@ -7524,7 +7524,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AssetForm 
+    public partial class AssetForm : IClientModel
     {
         public AssetForm(NetlifyClient client)
         {
@@ -7545,7 +7545,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AssetSignature 
+    public partial class AssetSignature : IClientModel
     {
         public AssetSignature(NetlifyClient client)
         {
@@ -7566,7 +7566,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AssetPublicSignature 
+    public partial class AssetPublicSignature : IClientModel
     {
         public AssetPublicSignature(NetlifyClient client)
         {
@@ -7584,7 +7584,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class DeployKey 
+    public partial class DeployKey : IClientModel
     {
         public DeployKey(NetlifyClient client)
         {
@@ -7608,7 +7608,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Member 
+    public partial class Member : IClientModel
     {
         public Member(NetlifyClient client)
         {
@@ -7638,7 +7638,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class PaymentMethod 
+    public partial class PaymentMethod : IClientModel
     {
         public PaymentMethod(NetlifyClient client)
         {
@@ -7674,7 +7674,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AccountType 
+    public partial class AccountType : IClientModel
     {
         public AccountType(NetlifyClient client)
         {
@@ -7713,7 +7713,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AccountSetup 
+    public partial class AccountSetup : IClientModel
     {
         public AccountSetup(NetlifyClient client)
         {
@@ -7746,7 +7746,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AccountUpdateSetup 
+    public partial class AccountUpdateSetup : IClientModel
     {
         public AccountUpdateSetup(NetlifyClient client)
         {
@@ -7785,7 +7785,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AccountMembership 
+    public partial class AccountMembership : IClientModel
     {
         public AccountMembership(NetlifyClient client)
         {
@@ -7848,7 +7848,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AuditLog 
+    public partial class AuditLog : IClientModel
     {
         public AuditLog(NetlifyClient client)
         {
@@ -7872,7 +7872,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class AccountUsageCapability 
+    public partial class AccountUsageCapability : IClientModel
     {
         public AccountUsageCapability(NetlifyClient client)
         {
@@ -7893,7 +7893,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class MinifyOptions 
+    public partial class MinifyOptions : IClientModel
     {
         public MinifyOptions(NetlifyClient client)
         {
@@ -7914,7 +7914,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class BuildHook 
+    public partial class BuildHook : IClientModel
     {
         public BuildHook(NetlifyClient client)
         {
@@ -7947,7 +7947,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class DeployedBranch 
+    public partial class DeployedBranch : IClientModel
     {
         public DeployedBranch(NetlifyClient client)
         {
@@ -7980,7 +7980,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class User 
+    public partial class User : IClientModel
     {
         public User(NetlifyClient client)
         {
@@ -8031,7 +8031,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Error 
+    public partial class Error : IClientModel
     {
         public Error(NetlifyClient client)
         {
@@ -8081,7 +8081,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class ProcessingSettings 
+    public partial class ProcessingSettings : IClientModel
     {
         public ProcessingSettings(NetlifyClient client)
         {
@@ -8111,7 +8111,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class DefaultHooksData 
+    public partial class DefaultHooksData : IClientModel
     {
         public DefaultHooksData(NetlifyClient client)
         {
@@ -8129,7 +8129,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class SiteCapabilities 
+    public partial class SiteCapabilities : IClientModel
     {
         public SiteCapabilities(NetlifyClient client)
         {
@@ -8147,7 +8147,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Data 
+    public partial class Data : IClientModel
     {
         public Data(NetlifyClient client)
         {
@@ -8182,7 +8182,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Capabilities 
+    public partial class Capabilities : IClientModel
     {
         public Capabilities(NetlifyClient client)
         {
@@ -8203,7 +8203,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Payload 
+    public partial class Payload : IClientModel
     {
         public Payload(NetlifyClient client)
         {
@@ -8245,7 +8245,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class OnboardingProgress 
+    public partial class OnboardingProgress : IClientModel
     {
         public OnboardingProgress(NetlifyClient client)
         {
@@ -8263,7 +8263,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Images 
+    public partial class Images : IClientModel
     {
         public Images(NetlifyClient client)
         {
@@ -8281,7 +8281,7 @@ namespace NetlifySharp
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Html 
+    public partial class Html : IClientModel
     {
         public Html(NetlifyClient client)
         {
