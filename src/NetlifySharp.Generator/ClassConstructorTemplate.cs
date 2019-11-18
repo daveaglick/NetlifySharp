@@ -1,27 +1,28 @@
-﻿using NJsonSchema.CodeGeneration;
+﻿using System;
+using NJsonSchema.CodeGeneration;
+using NJsonSchema.CodeGeneration.CSharp.Models;
 using NSwag.CodeGeneration.CSharp;
 
 namespace NetlifySharp.Generator
 {
     public class ClassConstructorTemplate : ITemplate
     {
-        private readonly DotLiquid.Hash _model;
+        private readonly ClassTemplateModel _classTemplateModel;
         private readonly CSharpClientGeneratorSettings _clientSettings;
 
-        public ClassConstructorTemplate(DotLiquid.Hash model, CSharpClientGeneratorSettings clientSettings)
+        public ClassConstructorTemplate(ClassTemplateModel classTemplateModel, CSharpClientGeneratorSettings clientSettings)
         {
-            _model = model;
-            _clientSettings = clientSettings;
+            _classTemplateModel = classTemplateModel ?? throw new ArgumentNullException(nameof(classTemplateModel));
+            _clientSettings = clientSettings ?? throw new ArgumentNullException(nameof(clientSettings));
         }
 
         public string Render()
         {
-            string className = _model.Get<string>("ClassName");
-            string baseClassName = _model.Get<string>("BaseClassName");
-            if (string.IsNullOrEmpty(baseClassName) || baseClassName.StartsWith("System."))
+            if (string.IsNullOrEmpty(_classTemplateModel.BaseClassName)
+                || _classTemplateModel.BaseClassName.StartsWith("System."))
             {
                 // No base class
-                return @$"public {className}({_clientSettings.ClassName} client)
+                return @$"public {_classTemplateModel.ClassName}({_clientSettings.ClassName} client)
 {{
     Client = client ?? throw new System.ArgumentNullException(nameof(client));
 }}
@@ -33,7 +34,7 @@ public {_clientSettings.ClassName} Client {{ get; internal set; }}
             }
 
             // Base class
-            return @$"public {className}({_clientSettings.ClassName} client) : base(client)
+            return @$"public {_classTemplateModel.ClassName}({_clientSettings.ClassName} client) : base(client)
 {{
 }}
     

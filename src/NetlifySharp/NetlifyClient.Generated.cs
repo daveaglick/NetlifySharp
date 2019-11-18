@@ -6730,6 +6730,7 @@ namespace NetlifySharp
         public object BranchTests { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -6745,6 +6746,7 @@ namespace NetlifySharp
             
         // Serializable properties
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -6787,6 +6789,7 @@ namespace NetlifySharp
         public string UnpublishedAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -6838,6 +6841,7 @@ namespace NetlifySharp
         public string UpdatedAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -6892,6 +6896,7 @@ namespace NetlifySharp
         public string UpdatedAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7000,6 +7005,105 @@ namespace NetlifySharp
         public string BuildImage { get; set; }
     
     
+        // Client methods
+        public System.Threading.Tasks.Task<Site> UpdateSiteAsync(SiteSetup site) => Client.UpdateSiteAsync(site, Id);
+        public System.Threading.Tasks.Task<Site> UpdateSiteAsync(SiteSetup site, System.Threading.CancellationToken cancellationToken) => Client.UpdateSiteAsync(site, Id, cancellationToken);
+        public System.Threading.Tasks.Task DeleteSiteAsync() => Client.DeleteSiteAsync(Id);
+        public System.Threading.Tasks.Task DeleteSiteAsync(System.Threading.CancellationToken cancellationToken) => Client.DeleteSiteAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<SniCertificate> ProvisionSiteTLSCertificateAsync(string certificate, string key, string caCertificates) => Client.ProvisionSiteTLSCertificateAsync(Id, certificate, key, caCertificates);
+        public System.Threading.Tasks.Task<SniCertificate> ProvisionSiteTLSCertificateAsync(string certificate, string key, string caCertificates, System.Threading.CancellationToken cancellationToken) => Client.ProvisionSiteTLSCertificateAsync(Id, certificate, key, caCertificates, cancellationToken);
+        public System.Threading.Tasks.Task<SniCertificate> ShowSiteTLSCertificateAsync() => Client.ShowSiteTLSCertificateAsync(Id);
+        public System.Threading.Tasks.Task<SniCertificate> ShowSiteTLSCertificateAsync(System.Threading.CancellationToken cancellationToken) => Client.ShowSiteTLSCertificateAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Form>> ListSiteFormsAsync() => Client.ListSiteFormsAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Form>> ListSiteFormsAsync(System.Threading.CancellationToken cancellationToken) => Client.ListSiteFormsAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Submission>> ListSiteSubmissionsAsync() => Client.ListSiteSubmissionsAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Submission>> ListSiteSubmissionsAsync(System.Threading.CancellationToken cancellationToken) => Client.ListSiteSubmissionsAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<File>> ListSiteFilesAsync() => Client.ListSiteFilesAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<File>> ListSiteFilesAsync(System.Threading.CancellationToken cancellationToken) => Client.ListSiteFilesAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Asset>> ListSiteAssetsAsync() => Client.ListSiteAssetsAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Asset>> ListSiteAssetsAsync(System.Threading.CancellationToken cancellationToken) => Client.ListSiteAssetsAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<AssetSignature> CreateSiteAssetAsync(string name, long size, string contentType, string visibility) => Client.CreateSiteAssetAsync(name, size, contentType, visibility, Id);
+        public System.Threading.Tasks.Task<AssetSignature> CreateSiteAssetAsync(string name, long size, string contentType, string visibility, System.Threading.CancellationToken cancellationToken) => Client.CreateSiteAssetAsync(name, size, contentType, visibility, Id, cancellationToken);
+        public System.Threading.Tasks.Task<Asset> GetSiteAssetInfoAsync(string assetId) => Client.GetSiteAssetInfoAsync(Id, assetId);
+        public System.Threading.Tasks.Task<Asset> GetSiteAssetInfoAsync(string assetId, System.Threading.CancellationToken cancellationToken) => Client.GetSiteAssetInfoAsync(Id, assetId, cancellationToken);
+        public System.Threading.Tasks.Task<Asset> UpdateSiteAssetAsync(string state, string assetId) => Client.UpdateSiteAssetAsync(state, Id, assetId);
+        public System.Threading.Tasks.Task<Asset> UpdateSiteAssetAsync(string state, string assetId, System.Threading.CancellationToken cancellationToken) => Client.UpdateSiteAssetAsync(state, Id, assetId, cancellationToken);
+        public System.Threading.Tasks.Task DeleteSiteAssetAsync(string assetId) => Client.DeleteSiteAssetAsync(Id, assetId);
+        public System.Threading.Tasks.Task DeleteSiteAssetAsync(string assetId, System.Threading.CancellationToken cancellationToken) => Client.DeleteSiteAssetAsync(Id, assetId, cancellationToken);
+        public System.Threading.Tasks.Task<AssetPublicSignature> GetSiteAssetPublicSignatureAsync(string assetId) => Client.GetSiteAssetPublicSignatureAsync(Id, assetId);
+        public System.Threading.Tasks.Task<AssetPublicSignature> GetSiteAssetPublicSignatureAsync(string assetId, System.Threading.CancellationToken cancellationToken) => Client.GetSiteAssetPublicSignatureAsync(Id, assetId, cancellationToken);
+        public System.Threading.Tasks.Task<File> GetSiteFileByPathNameAsync(string filePath) => Client.GetSiteFileByPathNameAsync(Id, filePath);
+        public System.Threading.Tasks.Task<File> GetSiteFileByPathNameAsync(string filePath, System.Threading.CancellationToken cancellationToken) => Client.GetSiteFileByPathNameAsync(Id, filePath, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Snippet>> ListSiteSnippetsAsync() => Client.ListSiteSnippetsAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Snippet>> ListSiteSnippetsAsync(System.Threading.CancellationToken cancellationToken) => Client.ListSiteSnippetsAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<Snippet> CreateSiteSnippetAsync(Snippet snippet) => Client.CreateSiteSnippetAsync(snippet, Id);
+        public System.Threading.Tasks.Task<Snippet> CreateSiteSnippetAsync(Snippet snippet, System.Threading.CancellationToken cancellationToken) => Client.CreateSiteSnippetAsync(snippet, Id, cancellationToken);
+        public System.Threading.Tasks.Task<Snippet> GetSiteSnippetAsync(string snippetId) => Client.GetSiteSnippetAsync(Id, snippetId);
+        public System.Threading.Tasks.Task<Snippet> GetSiteSnippetAsync(string snippetId, System.Threading.CancellationToken cancellationToken) => Client.GetSiteSnippetAsync(Id, snippetId, cancellationToken);
+        public System.Threading.Tasks.Task UpdateSiteSnippetAsync(Snippet snippet, string snippetId) => Client.UpdateSiteSnippetAsync(snippet, Id, snippetId);
+        public System.Threading.Tasks.Task UpdateSiteSnippetAsync(Snippet snippet, string snippetId, System.Threading.CancellationToken cancellationToken) => Client.UpdateSiteSnippetAsync(snippet, Id, snippetId, cancellationToken);
+        public System.Threading.Tasks.Task DeleteSiteSnippetAsync(string snippetId) => Client.DeleteSiteSnippetAsync(Id, snippetId);
+        public System.Threading.Tasks.Task DeleteSiteSnippetAsync(string snippetId, System.Threading.CancellationToken cancellationToken) => Client.DeleteSiteSnippetAsync(Id, snippetId, cancellationToken);
+        public System.Threading.Tasks.Task<Metadata> GetSiteMetadataAsync() => Client.GetSiteMetadataAsync(Id);
+        public System.Threading.Tasks.Task<Metadata> GetSiteMetadataAsync(System.Threading.CancellationToken cancellationToken) => Client.GetSiteMetadataAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task UpdateSiteMetadataAsync(Metadata metadata) => Client.UpdateSiteMetadataAsync(metadata, Id);
+        public System.Threading.Tasks.Task UpdateSiteMetadataAsync(Metadata metadata, System.Threading.CancellationToken cancellationToken) => Client.UpdateSiteMetadataAsync(metadata, Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BuildHook>> ListSiteBuildHooksAsync() => Client.ListSiteBuildHooksAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BuildHook>> ListSiteBuildHooksAsync(System.Threading.CancellationToken cancellationToken) => Client.ListSiteBuildHooksAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<BuildHook> CreateSiteBuildHookAsync(BuildHook buildHook) => Client.CreateSiteBuildHookAsync(buildHook, Id);
+        public System.Threading.Tasks.Task<BuildHook> CreateSiteBuildHookAsync(BuildHook buildHook, System.Threading.CancellationToken cancellationToken) => Client.CreateSiteBuildHookAsync(buildHook, Id, cancellationToken);
+        public System.Threading.Tasks.Task<BuildHook> GetSiteBuildHookAsync(string id) => Client.GetSiteBuildHookAsync(Id, id);
+        public System.Threading.Tasks.Task<BuildHook> GetSiteBuildHookAsync(string id, System.Threading.CancellationToken cancellationToken) => Client.GetSiteBuildHookAsync(Id, id, cancellationToken);
+        public System.Threading.Tasks.Task UpdateSiteBuildHookAsync(BuildHook buildHook, string id) => Client.UpdateSiteBuildHookAsync(buildHook, Id, id);
+        public System.Threading.Tasks.Task UpdateSiteBuildHookAsync(BuildHook buildHook, string id, System.Threading.CancellationToken cancellationToken) => Client.UpdateSiteBuildHookAsync(buildHook, Id, id, cancellationToken);
+        public System.Threading.Tasks.Task DeleteSiteBuildHookAsync(string id) => Client.DeleteSiteBuildHookAsync(Id, id);
+        public System.Threading.Tasks.Task DeleteSiteBuildHookAsync(string id, System.Threading.CancellationToken cancellationToken) => Client.DeleteSiteBuildHookAsync(Id, id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Deploy>> ListSiteDeploysAsync() => Client.ListSiteDeploysAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Deploy>> ListSiteDeploysAsync(System.Threading.CancellationToken cancellationToken) => Client.ListSiteDeploysAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<Deploy> CreateSiteDeployAsync(string title, DeployFiles deploy) => Client.CreateSiteDeployAsync(title, deploy, Id);
+        public System.Threading.Tasks.Task<Deploy> CreateSiteDeployAsync(string title, DeployFiles deploy, System.Threading.CancellationToken cancellationToken) => Client.CreateSiteDeployAsync(title, deploy, Id, cancellationToken);
+        public System.Threading.Tasks.Task<Deploy> GetSiteDeployAsync(string deployId) => Client.GetSiteDeployAsync(Id, deployId);
+        public System.Threading.Tasks.Task<Deploy> GetSiteDeployAsync(string deployId, System.Threading.CancellationToken cancellationToken) => Client.GetSiteDeployAsync(Id, deployId, cancellationToken);
+        public System.Threading.Tasks.Task<Deploy> UpdateSiteDeployAsync(string deployId, DeployFiles deploy) => Client.UpdateSiteDeployAsync(Id, deployId, deploy);
+        public System.Threading.Tasks.Task<Deploy> UpdateSiteDeployAsync(string deployId, DeployFiles deploy, System.Threading.CancellationToken cancellationToken) => Client.UpdateSiteDeployAsync(Id, deployId, deploy, cancellationToken);
+        public System.Threading.Tasks.Task<Deploy> RestoreSiteDeployAsync(string deployId) => Client.RestoreSiteDeployAsync(Id, deployId);
+        public System.Threading.Tasks.Task<Deploy> RestoreSiteDeployAsync(string deployId, System.Threading.CancellationToken cancellationToken) => Client.RestoreSiteDeployAsync(Id, deployId, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Build>> ListSiteBuildsAsync() => Client.ListSiteBuildsAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Build>> ListSiteBuildsAsync(System.Threading.CancellationToken cancellationToken) => Client.ListSiteBuildsAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<Build> CreateSiteBuildAsync() => Client.CreateSiteBuildAsync(Id);
+        public System.Threading.Tasks.Task<Build> CreateSiteBuildAsync(System.Threading.CancellationToken cancellationToken) => Client.CreateSiteBuildAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DeployedBranch>> ListSiteDeployedBranchesAsync() => Client.ListSiteDeployedBranchesAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DeployedBranch>> ListSiteDeployedBranchesAsync(System.Threading.CancellationToken cancellationToken) => Client.ListSiteDeployedBranchesAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DnsZone>> GetDNSForSiteAsync() => Client.GetDNSForSiteAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DnsZone>> GetDNSForSiteAsync(System.Threading.CancellationToken cancellationToken) => Client.GetDNSForSiteAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DnsZone>> ConfigureDNSForSiteAsync() => Client.ConfigureDNSForSiteAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DnsZone>> ConfigureDNSForSiteAsync(System.Threading.CancellationToken cancellationToken) => Client.ConfigureDNSForSiteAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Form>> ListFormsAsync() => Client.ListFormsAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Form>> ListFormsAsync(System.Threading.CancellationToken cancellationToken) => Client.ListFormsAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Hook>> ListHooksBySiteIdAsync() => Client.ListHooksBySiteIdAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Hook>> ListHooksBySiteIdAsync(System.Threading.CancellationToken cancellationToken) => Client.ListHooksBySiteIdAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<Hook> CreateHookBySiteIdAsync(Hook hook) => Client.CreateHookBySiteIdAsync(Id, hook);
+        public System.Threading.Tasks.Task<Hook> CreateHookBySiteIdAsync(Hook hook, System.Threading.CancellationToken cancellationToken) => Client.CreateHookBySiteIdAsync(Id, hook, cancellationToken);
+        public System.Threading.Tasks.Task<ServiceInstance> CreateServiceInstanceAsync(object config, string addon) => Client.CreateServiceInstanceAsync(config, Id, addon);
+        public System.Threading.Tasks.Task<ServiceInstance> CreateServiceInstanceAsync(object config, string addon, System.Threading.CancellationToken cancellationToken) => Client.CreateServiceInstanceAsync(config, Id, addon, cancellationToken);
+        public System.Threading.Tasks.Task<ServiceInstance> ShowServiceInstanceAsync(string addon) => Client.ShowServiceInstanceAsync(Id, addon);
+        public System.Threading.Tasks.Task<ServiceInstance> ShowServiceInstanceAsync(string addon, System.Threading.CancellationToken cancellationToken) => Client.ShowServiceInstanceAsync(Id, addon, cancellationToken);
+        public System.Threading.Tasks.Task UpdateServiceInstanceAsync(object config, string addon) => Client.UpdateServiceInstanceAsync(config, Id, addon);
+        public System.Threading.Tasks.Task UpdateServiceInstanceAsync(object config, string addon, System.Threading.CancellationToken cancellationToken) => Client.UpdateServiceInstanceAsync(config, Id, addon, cancellationToken);
+        public System.Threading.Tasks.Task DeleteServiceInstanceAsync(string addon) => Client.DeleteServiceInstanceAsync(Id, addon);
+        public System.Threading.Tasks.Task DeleteServiceInstanceAsync(string addon, System.Threading.CancellationToken cancellationToken) => Client.DeleteServiceInstanceAsync(Id, addon, cancellationToken);
+        public System.Threading.Tasks.Task<SplitTest> CreateSplitTestAsync(SplitTestSetup branchTests) => Client.CreateSplitTestAsync(branchTests, Id);
+        public System.Threading.Tasks.Task<SplitTest> CreateSplitTestAsync(SplitTestSetup branchTests, System.Threading.CancellationToken cancellationToken) => Client.CreateSplitTestAsync(branchTests, Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<SplitTest>> GetSplitTestsAsync() => Client.GetSplitTestsAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<SplitTest>> GetSplitTestsAsync(System.Threading.CancellationToken cancellationToken) => Client.GetSplitTestsAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<SplitTest> UpdateSplitTestAsync(SplitTestSetup branchTests, string splitTestId) => Client.UpdateSplitTestAsync(branchTests, Id, splitTestId);
+        public System.Threading.Tasks.Task<SplitTest> UpdateSplitTestAsync(SplitTestSetup branchTests, string splitTestId, System.Threading.CancellationToken cancellationToken) => Client.UpdateSplitTestAsync(branchTests, Id, splitTestId, cancellationToken);
+        public System.Threading.Tasks.Task<SplitTest> GetSplitTestAsync(string splitTestId) => Client.GetSplitTestAsync(Id, splitTestId);
+        public System.Threading.Tasks.Task<SplitTest> GetSplitTestAsync(string splitTestId, System.Threading.CancellationToken cancellationToken) => Client.GetSplitTestAsync(Id, splitTestId, cancellationToken);
+        public System.Threading.Tasks.Task EnableSplitTestAsync(string splitTestId) => Client.EnableSplitTestAsync(Id, splitTestId);
+        public System.Threading.Tasks.Task EnableSplitTestAsync(string splitTestId, System.Threading.CancellationToken cancellationToken) => Client.EnableSplitTestAsync(Id, splitTestId, cancellationToken);
+        public System.Threading.Tasks.Task DisableSplitTestAsync(string splitTestId) => Client.DisableSplitTestAsync(Id, splitTestId);
+        public System.Threading.Tasks.Task DisableSplitTestAsync(string splitTestId, System.Threading.CancellationToken cancellationToken) => Client.DisableSplitTestAsync(Id, splitTestId, cancellationToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7014,6 +7118,7 @@ namespace NetlifySharp
         public RepoInfo Repo { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7068,6 +7173,7 @@ namespace NetlifySharp
         public int? InstallationId { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7119,6 +7225,7 @@ namespace NetlifySharp
         public string SiteUrl { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7155,6 +7262,9 @@ namespace NetlifySharp
         public string CreatedAt { get; set; }
     
     
+        // Client methods
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Submission>> ListFormSubmissionsAsync() => Client.ListFormSubmissionsAsync(Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Submission>> ListFormSubmissionsAsync(System.Threading.CancellationToken cancellationToken) => Client.ListFormSubmissionsAsync(Id, cancellationToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7179,6 +7289,7 @@ namespace NetlifySharp
         public System.Collections.Generic.ICollection<object> Fields { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7218,6 +7329,13 @@ namespace NetlifySharp
         public bool? Disabled { get; set; }
     
     
+        // Client methods
+        public System.Threading.Tasks.Task<Hook> UpdateHookAsync(Hook hook) => Client.UpdateHookAsync(hook, Id);
+        public System.Threading.Tasks.Task<Hook> UpdateHookAsync(Hook hook, System.Threading.CancellationToken cancellationToken) => Client.UpdateHookAsync(hook, Id, cancellationToken);
+        public System.Threading.Tasks.Task DeleteHookBySiteIdAsync() => Client.DeleteHookBySiteIdAsync(Id);
+        public System.Threading.Tasks.Task DeleteHookBySiteIdAsync(System.Threading.CancellationToken cancellationToken) => Client.DeleteHookBySiteIdAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<Hook> EnableHookAsync() => Client.EnableHookAsync(Id);
+        public System.Threading.Tasks.Task<Hook> EnableHookAsync(System.Threading.CancellationToken cancellationToken) => Client.EnableHookAsync(Id, cancellationToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7248,6 +7366,7 @@ namespace NetlifySharp
         public long? Size { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7272,6 +7391,7 @@ namespace NetlifySharp
         public string Sha { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7308,6 +7428,7 @@ namespace NetlifySharp
         public string GoalPosition { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7410,6 +7531,21 @@ namespace NetlifySharp
         public SiteCapabilities SiteCapabilities { get; set; }
     
     
+        // Client methods
+        public System.Threading.Tasks.Task<Deploy> GetSiteDeployAsync(string siteId) => Client.GetSiteDeployAsync(siteId, Id);
+        public System.Threading.Tasks.Task<Deploy> GetSiteDeployAsync(string siteId, System.Threading.CancellationToken cancellationToken) => Client.GetSiteDeployAsync(siteId, Id, cancellationToken);
+        public System.Threading.Tasks.Task<Deploy> UpdateSiteDeployAsync(string siteId, DeployFiles deploy) => Client.UpdateSiteDeployAsync(siteId, Id, deploy);
+        public System.Threading.Tasks.Task<Deploy> UpdateSiteDeployAsync(string siteId, DeployFiles deploy, System.Threading.CancellationToken cancellationToken) => Client.UpdateSiteDeployAsync(siteId, Id, deploy, cancellationToken);
+        public System.Threading.Tasks.Task<Deploy> RestoreSiteDeployAsync(string siteId) => Client.RestoreSiteDeployAsync(siteId, Id);
+        public System.Threading.Tasks.Task<Deploy> RestoreSiteDeployAsync(string siteId, System.Threading.CancellationToken cancellationToken) => Client.RestoreSiteDeployAsync(siteId, Id, cancellationToken);
+        public System.Threading.Tasks.Task<Deploy> LockDeployAsync() => Client.LockDeployAsync(Id);
+        public System.Threading.Tasks.Task<Deploy> LockDeployAsync(System.Threading.CancellationToken cancellationToken) => Client.LockDeployAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<Deploy> UnlockDeployAsync() => Client.UnlockDeployAsync(Id);
+        public System.Threading.Tasks.Task<Deploy> UnlockDeployAsync(System.Threading.CancellationToken cancellationToken) => Client.UnlockDeployAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<File> UploadDeployFileAsync(string path, int? size, System.IO.Stream fileBody) => Client.UploadDeployFileAsync(Id, path, size, fileBody);
+        public System.Threading.Tasks.Task<File> UploadDeployFileAsync(string path, int? size, System.IO.Stream fileBody, System.Threading.CancellationToken cancellationToken) => Client.UploadDeployFileAsync(Id, path, size, fileBody, cancellationToken);
+        public System.Threading.Tasks.Task<Function> UploadDeployFunctionAsync(string name, string runtime, int? size, System.IO.Stream fileBody) => Client.UploadDeployFunctionAsync(Id, name, runtime, size, fileBody);
+        public System.Threading.Tasks.Task<Function> UploadDeployFunctionAsync(string name, string runtime, int? size, System.IO.Stream fileBody, System.Threading.CancellationToken cancellationToken) => Client.UploadDeployFunctionAsync(Id, name, runtime, size, fileBody, cancellationToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7437,6 +7573,7 @@ namespace NetlifySharp
         public object Functions { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7470,6 +7607,11 @@ namespace NetlifySharp
         public string CreatedAt { get; set; }
     
     
+        // Client methods
+        public System.Threading.Tasks.Task UpdateSiteBuildLogAsync(BuildLogMsg msg) => Client.UpdateSiteBuildLogAsync(Id, msg);
+        public System.Threading.Tasks.Task UpdateSiteBuildLogAsync(BuildLogMsg msg, System.Threading.CancellationToken cancellationToken) => Client.UpdateSiteBuildLogAsync(Id, msg, cancellationToken);
+        public System.Threading.Tasks.Task NotifyBuildStartAsync() => Client.NotifyBuildStartAsync(Id);
+        public System.Threading.Tasks.Task NotifyBuildStartAsync(System.Threading.CancellationToken cancellationToken) => Client.NotifyBuildStartAsync(Id, cancellationToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7491,6 +7633,7 @@ namespace NetlifySharp
         public bool? Error { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7506,6 +7649,7 @@ namespace NetlifySharp
             
         // Serializable properties
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7530,6 +7674,7 @@ namespace NetlifySharp
         public System.Collections.Generic.ICollection<DnsRecord> Records { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7563,6 +7708,7 @@ namespace NetlifySharp
         public long? Priority { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7593,6 +7739,7 @@ namespace NetlifySharp
         public string ExpiresAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7620,6 +7767,7 @@ namespace NetlifySharp
         public string CreatedAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7650,6 +7798,7 @@ namespace NetlifySharp
         public string CreatedAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7701,6 +7850,7 @@ namespace NetlifySharp
         public string UpdatedAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7722,6 +7872,7 @@ namespace NetlifySharp
         public System.Collections.Generic.IDictionary<string, string> Fields { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7743,6 +7894,7 @@ namespace NetlifySharp
         public Asset Asset { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7761,6 +7913,7 @@ namespace NetlifySharp
         public string Url { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7785,6 +7938,7 @@ namespace NetlifySharp
         public string CreatedAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7815,6 +7969,7 @@ namespace NetlifySharp
         public string Role { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7851,6 +8006,7 @@ namespace NetlifySharp
         public string UpdatedAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7890,6 +8046,7 @@ namespace NetlifySharp
         public int? YearlySeatsAddonDollarPrice { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7923,6 +8080,7 @@ namespace NetlifySharp
         public int? ExtraSeatsBlock { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -7962,6 +8120,7 @@ namespace NetlifySharp
         public string BillingDetails { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8025,6 +8184,13 @@ namespace NetlifySharp
         public string UpdatedAt { get; set; }
     
     
+        // Client methods
+        public System.Threading.Tasks.Task<AccountMembership> UpdateAccountAsync(AccountUpdateSetup accountUpdateSetup) => Client.UpdateAccountAsync(accountUpdateSetup, Id);
+        public System.Threading.Tasks.Task<AccountMembership> UpdateAccountAsync(AccountUpdateSetup accountUpdateSetup, System.Threading.CancellationToken cancellationToken) => Client.UpdateAccountAsync(accountUpdateSetup, Id, cancellationToken);
+        public System.Threading.Tasks.Task CancelAccountAsync() => Client.CancelAccountAsync(Id);
+        public System.Threading.Tasks.Task CancelAccountAsync(System.Threading.CancellationToken cancellationToken) => Client.CancelAccountAsync(Id, cancellationToken);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AuditLog>> ListAccountAuditEventsAsync(string query, string logType) => Client.ListAccountAuditEventsAsync(query, logType, Id);
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AuditLog>> ListAccountAuditEventsAsync(string query, string logType, System.Threading.CancellationToken cancellationToken) => Client.ListAccountAuditEventsAsync(query, logType, Id, cancellationToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8049,6 +8215,7 @@ namespace NetlifySharp
         public Payload Payload { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8070,6 +8237,7 @@ namespace NetlifySharp
         public int? Used { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8091,6 +8259,7 @@ namespace NetlifySharp
         public bool? Minify { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8124,6 +8293,7 @@ namespace NetlifySharp
         public string CreatedAt { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8157,6 +8327,7 @@ namespace NetlifySharp
         public string SslUrl { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8208,6 +8379,7 @@ namespace NetlifySharp
         public long? SupportPriority { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8230,6 +8402,7 @@ namespace NetlifySharp
         public string Message { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8288,6 +8461,7 @@ namespace NetlifySharp
         public Html Html { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8306,6 +8480,7 @@ namespace NetlifySharp
         public string AccessToken { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8324,6 +8499,7 @@ namespace NetlifySharp
         public bool? LargeMediaEnabled { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8348,6 +8524,7 @@ namespace NetlifySharp
         public string Email { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8380,6 +8557,7 @@ namespace NetlifySharp
         public AccountUsageCapability Collaborators { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8422,6 +8600,7 @@ namespace NetlifySharp
         }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8440,6 +8619,7 @@ namespace NetlifySharp
         public string Slides { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8458,6 +8638,7 @@ namespace NetlifySharp
         public bool? Optimize { get; set; }
     
     
+        // Client methods
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -8476,6 +8657,7 @@ namespace NetlifySharp
         public bool? PrettyUrls { get; set; }
     
     
+        // Client methods
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.1.5.0 (NJsonSchema v10.0.27.0 (Newtonsoft.Json v12.0.0.0))")]

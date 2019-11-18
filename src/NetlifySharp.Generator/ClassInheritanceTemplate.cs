@@ -1,4 +1,5 @@
-﻿using NJsonSchema.CodeGeneration;
+﻿using System;
+using NJsonSchema.CodeGeneration;
 using NSwag.CodeGeneration.CSharp;
 
 namespace NetlifySharp.Generator
@@ -9,7 +10,7 @@ namespace NetlifySharp.Generator
 
         public ClassInheritanceTemplate(ITemplate template)
         {
-            _template = template;
+            _template = template ?? throw new ArgumentNullException(nameof(template));
         }
 
         public string Render()

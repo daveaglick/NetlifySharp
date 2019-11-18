@@ -34,7 +34,7 @@ namespace NetlifySharp.Generator
                 InjectHttpClient = false,
                 UseHttpClientCreationMethod = true
             };
-            clientSettings.CSharpGeneratorSettings.TemplateFactory = new DelegatingTemplateFactory(
+            clientSettings.CSharpGeneratorSettings.TemplateFactory = new CustomTemplateFactory(
                 clientSettings.CSharpGeneratorSettings.TemplateFactory,
                 clientSettings);
             CSharpClientGenerator generator = new CSharpClientGenerator(document, clientSettings);
