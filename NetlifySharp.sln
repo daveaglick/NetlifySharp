@@ -9,13 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9D82AABF
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Files", "Files.shproj", "{C3D497EA-3113-4ED0-8806-94B20FC235DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetlifySharp.Generator", "src\NetlifySharp.Generator\NetlifySharp.Generator.csproj", "{0DF66273-6B1F-476E-A9AD-ED83B7494F0F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetlifySharp", "src\NetlifySharp\NetlifySharp.csproj", "{41AF07B8-6EE0-4D1A-9E23-F42689059B9C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F66FF7CA-79C6-495B-A073-C83B22AFFE51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetlifySharp.Build", "build\NetlifySharp.Build\NetlifySharp.Build.csproj", "{073ADC33-A84E-470B-8220-89F8FCCD1FC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetlifySharp.Build", "build\NetlifySharp.Build\NetlifySharp.Build.csproj", "{073ADC33-A84E-470B-8220-89F8FCCD1FC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{112DF2B8-84D8-46DA-995B-53D4DC30FBC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetlifySharp.Generator", "tools\NetlifySharp.Generator\NetlifySharp.Generator.csproj", "{7A593078-C658-4F01-B5F3-98C6AE646F0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0DF66273-6B1F-476E-A9AD-ED83B7494F0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DF66273-6B1F-476E-A9AD-ED83B7494F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DF66273-6B1F-476E-A9AD-ED83B7494F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0DF66273-6B1F-476E-A9AD-ED83B7494F0F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41AF07B8-6EE0-4D1A-9E23-F42689059B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41AF07B8-6EE0-4D1A-9E23-F42689059B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41AF07B8-6EE0-4D1A-9E23-F42689059B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,14 +33,18 @@ Global
 		{073ADC33-A84E-470B-8220-89F8FCCD1FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{073ADC33-A84E-470B-8220-89F8FCCD1FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{073ADC33-A84E-470B-8220-89F8FCCD1FC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A593078-C658-4F01-B5F3-98C6AE646F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A593078-C658-4F01-B5F3-98C6AE646F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A593078-C658-4F01-B5F3-98C6AE646F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A593078-C658-4F01-B5F3-98C6AE646F0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0DF66273-6B1F-476E-A9AD-ED83B7494F0F} = {1D456B5E-2874-446C-8CFD-5134FC11ACAF}
 		{41AF07B8-6EE0-4D1A-9E23-F42689059B9C} = {1D456B5E-2874-446C-8CFD-5134FC11ACAF}
 		{073ADC33-A84E-470B-8220-89F8FCCD1FC1} = {F66FF7CA-79C6-495B-A073-C83B22AFFE51}
+		{7A593078-C658-4F01-B5F3-98C6AE646F0B} = {112DF2B8-84D8-46DA-995B-53D4DC30FBC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17A4CA1C-8EEE-4D62-A5F2-06B88FEF22CB}

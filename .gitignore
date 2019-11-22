@@ -278,9 +278,6 @@ paket-files/
 __pycache__/
 *.pyc
 
-# Cake - Uncomment if you are using it
-[tT]ools/
-
 # Docs
 docs/output/
 docs/config.wyam.packages.xml

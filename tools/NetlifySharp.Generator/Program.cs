@@ -44,7 +44,7 @@ namespace NetlifySharp.Generator
             code = code.Replace($"public {clientSettings.ClassName}(", $"private {clientSettings.ClassName}(");
 
             // Write to a file in the client project
-            System.IO.File.WriteAllText($"../NetlifySharp/{clientSettings.ClassName}.Generated.cs", code);
+            System.IO.File.WriteAllText($"../../src/NetlifySharp/{clientSettings.ClassName}.Generated.cs", code);
         }
     }
 }

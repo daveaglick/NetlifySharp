@@ -11,12 +11,8 @@ namespace NetlifySharp.Build
 {
     public class Program
     {
-        // Pipeline names
-        public const string Build = nameof(Build);
-        public const string Test = nameof(Test);
-        public const string Docs = nameof(Docs);
-        public const string Pack = nameof(Pack);
-        public const string Publish = nameof(Publish);
+        private const string BuildVersion = nameof(BuildVersion);
+        private const string BuildProperties = nameof(BuildProperties);
 
         public static async Task<int> Main(string[] args) => await Bootstrapper
             .CreateDefault(args, DefaultsToAdd.All & ~DefaultsToAdd.Commands)
@@ -29,85 +25,147 @@ namespace NetlifySharp.Build
                 {
                     version += "-build-" + x["BUILD_BUILDNUMBER"];
                 }
-                x["BuildVersion"] = version;
-                x["BuildProperties"] = $"-p:Version={version} -p:AssemblyVersion={version} -p:FileVersion={version}";
+                x[BuildVersion] = version;
+                x[BuildProperties] = $"-p:Version={version} -p:AssemblyVersion={version} -p:FileVersion={version}";
             })
 
             // Add build commands to the CLI
             .AddBuildCommand("build", "Builds all projects.", nameof(Build))
             .AddBuildCommand("test", "Builds and tests all projects.", nameof(Test))
-            .AddBuildCommand("docs", "Previews the documentation.", nameof(Docs))
             .AddBuildCommand("pack", "Packs the packages.", nameof(Pack))
+            .AddBuildCommand("zip", "Zips the binaries.", nameof(Zip))
             .AddBuildCommand("publish", "Publishes the packages and documentation site.", nameof(Publish))
 
             // Add pipelines
-            .BuildPipeline(Build, pipeline => pipeline
-                .ManuallyExecute()
-                .WithProcessModules(
-                    new ReadFiles("../../../src/*/*.csproj"),
-                    new StartProcess(
-                        "dotnet",
-                        Config.FromDocument((doc, ctx) => $"build \"{doc.Source.FullPath}\" {ctx.Settings.GetString("BuildProperties")}"))
-                        .WithSequentialExecution()
-                        .LogOutput()))
-
-            .BuildPipeline(Test, pipeline => pipeline
-                .ManuallyExecute()
-                .WithDependencies(Build)
-                .WithProcessModules(
-                    new ReadFiles("../../../tests/*/*.csproj"),
-                    new StartProcess(
-                        "dotnet",
-                        Config.FromDocument((doc, ctx) =>
-                        {
-                            StringBuilder builder = new StringBuilder($"test --no-build --no-restore \"{doc.Source.FullPath}\" {ctx.Settings.GetString("BuildProperties")} /p:CollectCoverage=true");
-                            if (ctx.Settings.ContainsKey("BUILD_BUILDNUMBER"))
-                            {
-                                // We're in Azure Pipelines so add the test logger
-                                builder.Append(" --test-adapter-path:. --logger:AzurePipelines");
-                            }
-                            return builder.ToString();
-                        }))
-                        .WithSequentialExecution()
-                        .LogOutput()))
-
-            .BuildPipeline(Pack, pipeline => pipeline
-                .ManuallyExecute()
-                .WithDependencies(Test)
-                .WithProcessModules(
-                    new StartProcess(
-                        "dotnet",
-                        Config.FromContext(ctx => $"pack ../../src/NetlifySharp/NetlifySharp.csproj --no-build --no-restore -o \"{ctx.FileSystem.GetOutputDirectory("packages").Path}\" {ctx.Settings.GetString("BuildProperties")}"))
-                        .LogOutput(),
-                    new ReadFiles(Config.FromContext(ctx => $"{ctx.FileSystem.GetOutputDirectory("packages").Path}/*.nupkg")),
-                    new ExecuteIf(Config.FromContext(ctx => ctx.Settings.ContainsKey("DAVIDGLICK_CERTPASS") && ctx.FileSystem.GetRootFile("../../digicert-davidglick.pfx").Exists))
-                    {
-                        new StartProcess(
-                            "nuget",
-                            Config.FromDocument((doc, ctx) =>
-                            {
-                                string certPath = ctx.FileSystem.GetRootFile("../../digicert-davidglick.pfx").Path.FullPath;
-                                string password = ctx.Settings.GetString("DAVIDGLICK_CERTPASS");
-                                return $"sign \"{doc.Source.FullPath}\" -CertificatePath \"{certPath}\" -CertificatePassword \"{password}\" -Timestamper \"http://timestamp.digicert.com\" -NonInteractive";
-                            }))
-                            .LogOutput()
-                    }))
-
-            // TODO: Generate zip
-            // TODO: Generate GitHub release
-            // TODO: Run docs generator with deployment
-            .BuildPipeline(Publish, pipeline => pipeline
-                .ManuallyExecute()
-                .WithDependencies(Pack)
-                .WithProcessModules(
-                    new ReadFiles(Config.FromContext(ctx => $"{ctx.FileSystem.GetOutputDirectory("packages").Path}/*.nupkg")),
-                    new StartProcess(
-                        "dotnet",
-                        Config.FromDocument((doc, ctx) => $"nuget push --api-key {ctx.Settings.GetString("NUGET_KEY")} --source \"https://api.nuget.org/v3/index.json\" \"{doc.Source.FullPath}\" "))
-                        .WithSequentialExecution()
-                        .LogOutput()))
+            .AddPipeline<Build>()
+            .AddPipeline<Test>()
+            .AddPipeline<Pack>()
+            .AddPipeline<Zip>()
+            .AddPipeline<Publish>()
 
             // Run the app
             .RunAsync();
+
+        private static DirectoryPath GetBuildPath(IDocument doc, IExecutionContext ctx) =>
+            ctx.FileSystem.GetOutputPath((DirectoryPath)("build/" + doc.Source.Directory.Name));
+
+        public class Build : Pipeline
+        {
+            public Build()
+            {
+                ExecutionPolicy = ExecutionPolicy.Manual;
+                ProcessModules = new ModuleList
+                {
+                    new ReadFiles("../../../src/*/*.csproj"),
+                    new StartProcess("dotnet")
+                        .WithArgument("build")
+                        .WithArgument(Config.FromDocument(doc => doc.Source.FullPath), true)
+                        .WithArgument("-o", Config.FromDocument((doc, ctx) => GetBuildPath(doc, ctx).FullPath), true)
+                        .WithArgument(Config.FromSetting<string>(BuildProperties))
+                        .WithSequentialExecution()
+                        .LogOutput()
+                };
+            }
+        }
+
+        public class Test : Pipeline
+        {
+            public Test()
+            {
+                ExecutionPolicy = ExecutionPolicy.Manual;
+                Dependencies.Add(nameof(Build));
+                ProcessModules = new ModuleList
+                {
+                    new ReadFiles("../../../tests/*/*.csproj"),
+                    new StartProcess("dotnet")
+                        .WithArgument("test")
+                        .WithArgument("--no-build")
+                        .WithArgument("--no-restore")
+                        .WithArgument(Config.FromDocument(doc => doc.Source.FullPath))
+                        .WithArgument("-o", Config.FromDocument((doc, ctx) => GetBuildPath(doc, ctx).FullPath), true)
+                        .WithArgument(Config.FromSetting<string>(BuildProperties))
+                        .WithArgument("/p:CollectCoverage=true")
+                        .WithArgument(Config.FromSettings(settings => settings.ContainsKey("BUILD_BUILDNUMBER") ? "--test-adapter-path:. --logger:AzurePipelines" : null))
+                        .WithSequentialExecution()
+                        .LogOutput()
+                };
+            }
+        }
+
+        public class Pack : Pipeline
+        {
+            public Pack()
+            {
+                ExecutionPolicy = ExecutionPolicy.Manual;
+                Dependencies.Add(nameof(Test));
+                ProcessModules = new ModuleList
+                {
+                    new StartProcess("dotnet")
+                        .WithArgument("pack")
+                        .WithArgument("../../src/NetlifySharp/NetlifySharp.csproj", true)
+                        .WithArgument("--no-build")
+                        .WithArgument("--no-restore")
+                        .WithArgument("-o", Config.FromContext(ctx => ctx.FileSystem.GetOutputDirectory("packages").Path.FullPath), true)
+                        .WithArgument(Config.FromSetting<string>(BuildProperties))
+                        .LogOutput(),
+                    new ReadFiles(Config.FromContext(ctx => $"{ctx.FileSystem.GetOutputDirectory("packages")}/*.nupkg")),
+                    new ExecuteIf(Config.FromContext(ctx => ctx.ContainsKey("DAVIDGLICK_CERTPASS") && ctx.FileSystem.GetRootFile("../../digicert-davidglick.pfx").Exists))
+                    {
+                        new StartProcess("nuget")
+                            .WithArgument("sign")
+                            .WithArgument(Config.FromDocument(doc => doc.Source.FullPath), true)
+                            .WithArgument("-CertificatePath", Config.FromContext(ctx => ctx.FileSystem.GetRootFile("../../digicert-davidglick.pfx").Path.FullPath), true)
+                            .WithArgument("-CertificatePassword", Config.FromSetting<string>("DAVIDGLICK_CERTPASS"), true)
+                            .WithArgument("-Timestamper", "http://timestamp.digicert.com", true)
+                            .WithArgument("-NonInteractive")
+                            .LogOutput()
+                    }
+                };
+            }
+        }
+
+        public class Zip : Pipeline
+        {
+            public Zip()
+            {
+                ExecutionPolicy = ExecutionPolicy.Manual;
+                Dependencies.Add(nameof(Test));
+                ProcessModules = new ModuleList
+                {
+                    new ReadFiles("../../../src/*/*.csproj"),
+                    new ExecuteModules(
+                        new ExecuteConfig(Config.FromDocument((doc, ctx) =>
+                            (object)new CopyFiles("../../../README.md", "../../../ReleaseNotes.md", "../../../LICENSE")
+                                .To(x => Task.FromResult(GetBuildPath(doc, ctx).CombineFile(x.Path.FileName)))))),
+                    new ZipDirectory(Config.FromDocument(GetBuildPath)),
+                    new SetDestination(Config.FromDocument((doc, ctx) => (FilePath)$"zip/{doc.Source.FileNameWithoutExtension}-{ctx.GetString(BuildVersion)}.zip")),
+                    new WriteFiles()
+                };
+            }
+        }
+
+        // TODO: Generate zip
+        // TODO: Generate GitHub release
+        // TODO: Run docs generator with deployment
+        public class Publish : Pipeline
+        {
+            public Publish()
+            {
+                ExecutionPolicy = ExecutionPolicy.Manual;
+                Dependencies.Add(nameof(Pack));
+                ProcessModules = new ModuleList
+                {
+                    new ReadFiles(Config.FromContext(ctx => $"{ctx.FileSystem.GetOutputDirectory("packages")}/*.nupkg")),
+                    new StartProcess("dotnet")
+                        .WithArgument("nuget")
+                        .WithArgument("push")
+                        .WithArgument("--api-key", Config.FromSetting<string>("NUGET_KEY"))
+                        .WithArgument("--source", "https://api.nuget.org/v3/index.json", true)
+                        .WithArgument(Config.FromDocument(doc => doc.Source.FullPath), true)
+                        .WithSequentialExecution()
+                        .LogOutput()
+                };
+            }
+        }
     }
 }
