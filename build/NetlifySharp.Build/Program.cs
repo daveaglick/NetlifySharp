@@ -15,9 +15,7 @@ namespace NetlifySharp.Build
         private const string BuildProperties = nameof(BuildProperties);
 
         public static async Task<int> Main(string[] args) => await Bootstrapper
-            .CreateDefault(args, DefaultsToAdd.All & ~DefaultsToAdd.Commands)
-
-            // Configure build settings for the correct version
+            .CreateDefault(args)
             .ConfigureSettings(x =>
             {
                 string version = File.ReadAllLines("../../ReleaseNotes.md")[0].TrimStart('#').Trim();
@@ -28,22 +26,7 @@ namespace NetlifySharp.Build
                 x[BuildVersion] = version;
                 x[BuildProperties] = $"-p:Version={version} -p:AssemblyVersion={version} -p:FileVersion={version}";
             })
-
-            // Add build commands to the CLI
-            .AddBuildCommand("build", "Builds all projects.", nameof(Build))
-            .AddBuildCommand("test", "Builds and tests all projects.", nameof(Test))
-            .AddBuildCommand("pack", "Packs the packages.", nameof(Pack))
-            .AddBuildCommand("zip", "Zips the binaries.", nameof(Zip))
-            .AddBuildCommand("publish", "Publishes the packages and documentation site.", nameof(Publish))
-
-            // Add pipelines
-            .AddPipeline<Build>()
-            .AddPipeline<Test>()
-            .AddPipeline<Pack>()
-            .AddPipeline<Zip>()
-            .AddPipeline<Publish>()
-
-            // Run the app
+            .AddPipelines<Program>()
             .RunAsync();
 
         private static DirectoryPath GetBuildPath(IDocument doc, IExecutionContext ctx) =>
