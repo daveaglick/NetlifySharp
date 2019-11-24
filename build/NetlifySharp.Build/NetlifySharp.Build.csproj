@@ -7,15 +7,19 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);output\**;temp\**;reportgenerator.exe;nuget.exe</DefaultItemExcludes>
   </PropertyGroup>
 
-  <!--
   <ItemGroup>
-    <PackageReference Include="Statiq.App" Version="1.0.0-alpha.19" />
+    <PackageReference Include="Octokit" Version="0.36.0" />
   </ItemGroup>
-  -->
 
+  <ItemGroup>
+    <PackageReference Include="Statiq.App" Version="1.0.0-alpha.20" />
+  </ItemGroup>
+
+  <!--
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\statiqdev\Statiq.Framework\src\core\Statiq.App\Statiq.App.csproj" />
     <ProjectReference Include="..\..\..\..\statiqdev\Statiq.Framework\src\core\Statiq.Common\Statiq.Common.csproj" />
     <ProjectReference Include="..\..\..\..\statiqdev\Statiq.Framework\src\core\Statiq.Core\Statiq.Core.csproj" />
   </ItemGroup>
+  -->
 </Project>

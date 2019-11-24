@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Octokit;
 using Statiq.App;
 using Statiq.Common;
 using Statiq.Core;
@@ -13,18 +15,25 @@ namespace NetlifySharp.Build
     {
         private const string BuildVersion = nameof(BuildVersion);
         private const string BuildProperties = nameof(BuildProperties);
+        private const string ReleaseNotes = nameof(ReleaseNotes);
 
         public static async Task<int> Main(string[] args) => await Bootstrapper
-            .CreateDefault(args)
+            .CreateDefaultWithout(args, DefaultFeatures.HostingCommands)
             .ConfigureSettings(x =>
             {
-                string version = File.ReadAllLines("../../ReleaseNotes.md")[0].TrimStart('#').Trim();
+                List<string> releaseLines = File.ReadAllLines("../../ReleaseNotes.md").ToList();
+                int versionIndex = releaseLines.FindIndex(x => x.StartsWith("#"));
+                string version = releaseLines[versionIndex].TrimStart('#').Trim();
+                string releaseNotes = string.Join(
+                    Environment.NewLine,
+                    releaseLines.Skip(versionIndex + 1).TakeWhile(x => !x.StartsWith("#")).Where(x => !string.IsNullOrWhiteSpace(x)));
                 if (x.ContainsKey("BUILD_BUILDNUMBER"))
                 {
                     version += "-build-" + x["BUILD_BUILDNUMBER"];
                 }
                 x[BuildVersion] = version;
                 x[BuildProperties] = $"-p:Version={version} -p:AssemblyVersion={version} -p:FileVersion={version}";
+                x[ReleaseNotes] = releaseNotes;
             })
             .AddPipelines<Program>()
             .RunAsync();
@@ -127,26 +136,54 @@ namespace NetlifySharp.Build
             }
         }
 
-        // TODO: Generate zip
-        // TODO: Generate GitHub release
-        // TODO: Run docs generator with deployment
         public class Publish : Pipeline
         {
             public Publish()
             {
                 ExecutionPolicy = ExecutionPolicy.Manual;
-                Dependencies.Add(nameof(Pack));
-                ProcessModules = new ModuleList
+                Deployment = true;
+                Dependencies.AddRange(nameof(Pack), nameof(Zip));
+                OutputModules = new ModuleList
                 {
-                    new ReadFiles(Config.FromContext(ctx => $"{ctx.FileSystem.GetOutputDirectory("packages")}/*.nupkg")),
-                    new StartProcess("dotnet")
-                        .WithArgument("nuget")
-                        .WithArgument("push")
-                        .WithArgument("--api-key", Config.FromSetting<string>("NUGET_KEY"))
-                        .WithArgument("--source", "https://api.nuget.org/v3/index.json", true)
-                        .WithArgument(Config.FromDocument(doc => doc.Source.FullPath), true)
-                        .WithSequentialExecution()
-                        .LogOutput()
+                    new ThrowException(Config.FromSettings(settings => settings.ContainsKey("NUGET_KEY") ? null : "The setting NUGET_KEY is required")),
+                    new ThrowException(Config.FromSettings(settings => settings.ContainsKey("GITHUB_TOKEN") ? null : "The setting GITHUB_TOKEN is required")),
+                    new ExecuteModules
+                    {
+                        new ReadFiles(Config.FromContext(ctx => $"{ctx.FileSystem.GetOutputDirectory("packages")}/*.nupkg")),
+                        new StartProcess("dotnet")
+                            .WithArgument("nuget")
+                            .WithArgument("push")
+                            .WithArgument("--api-key", Config.FromSetting<string>("NUGET_KEY"))
+                            .WithArgument("--source", "https://api.nuget.org/v3/index.json", true)
+                            .WithArgument(Config.FromDocument(doc => doc.Source.FullPath), true)
+                            .WithSequentialExecution()
+                            .LogOutput()
+                    },
+                    new ExecuteModules
+                    {
+                        new ReadFiles(Config.FromContext(ctx => $"{ctx.FileSystem.GetOutputDirectory("zip")}/*.zip")),
+                        new ExecuteConfig(Config.FromContext(async ctx =>
+                        {
+                            GitHubClient github = new GitHubClient(new ProductHeaderValue(nameof(NetlifySharp)));
+                            github.Credentials = new Credentials(ctx.GetString("GITHUB_TOKEN"));
+                            Release release = github.Repository.Release.Create("daveaglick", "NetlifySharp", new NewRelease(ctx.GetString(BuildVersion))
+                            {
+                                Name = ctx.GetString(BuildVersion),
+                                Body = string.Join(Environment.NewLine, ctx.GetString(ReleaseNotes)),
+                                TargetCommitish = "master"
+                            }).Result;
+
+                            foreach (IDocument input in ctx.Inputs)
+                            {
+                                using (Stream stream = input.GetContentStream())
+                                {
+                                    await github.Repository.Release.UploadAsset(
+                                        release,
+                                        new ReleaseAssetUpload(input.Source.FileName.FullPath, "application/zip", stream, null));
+                                }
+                            }
+                        }))
+                    }
                 };
             }
         }
