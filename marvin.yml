@@ -1,0 +1,8 @@
+ProjectSets:
+  - Name: NetlifySharp
+    SourceProjects: "src/*/*.csproj"
+    TestProjects: "tests/*/*.csproj"
+    GitHubOwner: "daveaglick"
+    GitHubName: "NetlifySharp"
+GitHubToken: => GetString("GITHUB_TOKEN")
+NuGetApiKey: => GetString("DAVEAGLICK_NUGET_API_KEY")

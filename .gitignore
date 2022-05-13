@@ -296,3 +296,6 @@ docs/config.wyam.dll
 *.ncrunchsolution
 
 *.ncrunchproject
+
+cache/
+marvin/
