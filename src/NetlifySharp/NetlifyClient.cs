@@ -28,11 +28,14 @@ namespace NetlifySharp
             {
                 throw new ArgumentException("Invalid access token", nameof(accessToken));
             }
-            _httpClient = httpClient;
+            _httpClient = httpClient ?? CreateHttpClient();
         }
 
         private Task<HttpClient> CreateHttpClientAsync(CancellationToken cancellationToken) =>
-            Task.FromResult(_httpClient == null ? new HttpClient() : new HttpClientWrapper(_httpClient));
+            Task.FromResult(CreateHttpClient());
+
+        private HttpClient CreateHttpClient()
+            => _httpClient == null ? new HttpClient() : new HttpClientWrapper(_httpClient);
 
         partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings)
         {
