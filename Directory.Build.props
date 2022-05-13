@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <Version Condition="'$(ProjectNameVersion)' == ''">1.0.0</Version>
-    <Version Condition="'$(ProjectNameVersion)' != ''">$(NetlifySharpVersion)</Version>
+    <Version Condition="'$(NetlifySharpVersion)' == ''">1.0.0</Version>
+    <Version Condition="'$(NetlifySharpVersion)' != ''">$(NetlifySharpVersion)</Version>
     <AssemblyVersion>$(Version.Split('-')[0])</AssemblyVersion>
     <FileVersion>$(Version.Split('-')[0])</FileVersion>
     <Authors>Dave Glick and contributors</Authors>
